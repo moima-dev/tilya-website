@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tilya-co – Power in Motion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            background: #0f172a;
+            color: #fff;
+        }
+
+        .home-body {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== WRAPPER PRINCIPAL (tout sauf footer) ===== */
+        .page-wrapper {
+            flex: 1 0 auto;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Carrousel de fond */
+        .background-carousel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        /* Overlay avec dégradé orange/bleu */
+        .carousel-slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 140, 0, 0.15) 0%,
+                rgba(15, 23, 42, 0.85) 70%
+            );
+        }
+
+        /* Logo en haut à droite */
+        .top-right-logo {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 10;
+        }
+
+        .brand-logo-home {
+            height: 80px;
+            width: auto;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 140, 0, 0.5);
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
+            background: rgba(15, 23, 42, 0.9);
+            padding: 5px;
+        }
+
+        /* Contenu central */
+        .center-content {
+            position: relative;
+            min-height: calc(100vh - 150px); /* Réduit pour laisser plus d'espace */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 5;
+            padding: 80px 20px 120px; /* Plus de padding en bas */
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #fff 0%, #ff8c00 50%, #fff 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .center-content p {
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            max-width: 600px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Bouton avec couleurs orange */
+        .btn-cta {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #ff8c00, #ffa500);
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 140, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-cta:hover::before {
+            left: 100%;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 140, 0, 0.4);
+        }
+
+        /* ===== FOOTER RÉDUIT ===== */
+        footer {
+            flex-shrink: 0;
+            width: 100%;
+            background: #0f172a;
+            position: relative;
+            padding: 0;
+        }
+
+        .footer-wave {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 1;
+        }
+
+        .footer-wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 50px; /* Hauteur réduite de 70px à 50px */
+        }
+
+        .footer-wave .shape-fill {
+            fill: #0f172a;
+        }
+
+        .footer-main {
+            background: #0f172a;
+            padding: 40px 0 20px; /* Padding réduit : 60px à 40px en haut, 30px à 20px en bas */
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .footer-container {
+            width: min(1200px, 94%);
+            margin: 0 auto;
+        }
+
+        /* Suppression de la grille à deux colonnes */
+        .footer-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 30px; /* Réduit de 40px à 30px */
+        }
+
+        /* Section contact horizontal */
+        .footer-contact-section {
+            width: 100%;
+            margin-bottom: 30px; /* Réduit de 40px à 30px */
+        }
+
+        .footer-contact-title {
+            font-size: 1.6rem; /* Réduit de 2rem à 1.6rem */
+            font-weight: 800;
+            margin-bottom: 30px; /* Réduit de 40px à 30px */
+            background: linear-gradient(135deg, #fff, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .footer-contact-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Réduit de 30px à 20px */
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px; /* Réduit de 15px à 12px */
+            padding: 20px 15px; /* Réduit de 25px 20px à 20px 15px */
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            min-width: 250px; /* Réduit de 280px à 250px */
+            max-width: 300px; /* Réduit de 320px à 300px */
+            flex: 1;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .footer-contact-item:hover {
+            background: rgba(255,140,0,0.08);
+            border-color: rgba(255,140,0,0.2);
+            transform: translateY(-3px); /* Réduit de -5px à -3px */
+            box-shadow: 0 10px 30px rgba(255,140,0,0.15); /* Réduit l'ombre */
+        }
+
+        .footer-icon {
+            width: 50px; /* Réduit de 60px à 50px */
+            height: 50px; /* Réduit de 60px à 50px */
+            border-radius: 12px; /* Réduit de 15px à 12px */
+            background: linear-gradient(135deg, rgba(255,140,0,0.2), rgba(255,140,0,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem; /* Réduit de 1.5rem à 1.3rem */
+            color: #ff8c00;
+            flex-shrink: 0;
+        }
+
+        .footer-contact-content {
+            text-align: center;
+        }
+
+        .footer-contact-content h4 {
+            margin: 0 0 8px 0; /* Réduit de 10px à 8px */
+            font-size: 1.1rem; /* Réduit de 1.3rem à 1.1rem */
+            color: white;
+        }
+
+        .footer-contact-content p {
+            margin: 0;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5; /* Réduit de 1.6 à 1.5 */
+            font-size: 0.9rem; /* Réduit de 1rem à 0.9rem */
+        }
+
+        .footer-contact-content a {
+            color: #ff8c00;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .footer-contact-content a:hover {
+            text-decoration: underline;
+            color: #ffa500;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px; /* Réduit de 30px à 20px */
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem; /* Réduit de 0.95rem à 0.85rem */
+            margin-bottom: 15px; /* Réduit de 20px à 15px */
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Réduit de 20px à 15px */
+            margin-top: 15px; /* Réduit de 20px à 15px */
+        }
+
+        .social-icon {
+            width: 36px; /* Réduit de 40px à 36px */
+            height: 36px; /* Réduit de 40px à 36px */
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 1rem; /* Réduit de 1.1rem à 1rem */
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(135deg, #ff8c00, #ffa500);
+            color: #0f172a;
+            transform: translateY(-2px); /* Réduit de -3px à -2px */
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-contact-list {
+                gap: 15px; /* Réduit de 20px à 15px */
+            }
+            
+            .footer-contact-item {
+                min-width: 220px; /* Réduit de 250px à 220px */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .brand-logo-home {
+                height: 60px;
+            }
+            
+            .top-right-logo {
+                top: 20px;
+                right: 20px;
+            }
+            
+            .center-content p {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+            
+            .btn-cta {
+                padding: 14px 35px;
+                font-size: 1rem;
+            }
+            
+            .footer-contact-list {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px; /* Réduit de 20px à 15px */
+            }
+            
+            .footer-contact-item {
+                width: 100%;
+                max-width: 320px; /* Réduit de 350px à 320px */
+            }
+            
+            .footer-main {
+                padding: 35px 0 15px; /* Réduit */
+            }
+            
+            .footer-contact-title {
+                font-size: 1.4rem; /* Réduit de 1.8rem à 1.4rem */
+                margin-bottom: 25px; /* Réduit de 30px à 25px */
+            }
+            
+            .footer-wave svg {
+                height: 40px; /* Réduit de 50px à 40px sur mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .brand-logo-home {
+                height: 50px;
+            }
+            
+            .btn-cta {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
+            
+            .footer-contact-item {
+                padding: 15px 12px; /* Réduit de 20px 15px à 15px 12px */
+            }
+            
+            .footer-icon {
+                width: 45px; /* Réduit de 50px à 45px */
+                height: 45px; /* Réduit de 50px à 45px */
+                font-size: 1.2rem; /* Réduit de 1.3rem à 1.2rem */
+            }
+            
+            .footer-contact-content h4 {
+                font-size: 1rem; /* Réduit de 1.1rem à 1rem */
+            }
+            
+            .footer-contact-content p {
+                font-size: 0.85rem; /* Réduit de 0.9rem à 0.85rem */
+            }
+            
+            .footer-wave svg {
+                height: 35px; /* Réduit de 40px à 35px sur très petits écrans */
+            }
+        }
+
+        /* Pour réduire les animations si l'utilisateur préfère */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-title {
+                animation: none;
+            }
+            
+            .carousel-slide {
+                transition: none;
+            }
+            
+            .btn-cta::before {
+                display: none;
+            }
+            
+            * { 
+                animation-duration: 0.01ms !important; 
+                animation-iteration-count: 1 !important; 
+                transition-duration: 0.01ms !important; 
+                scroll-behavior: auto !important; 
+            }
+        }
+    </style>
+</head>
+<body class="home-body">
+
+    <!-- WRAPPER PRINCIPAL (tout sauf footer) -->
+    <div class="page-wrapper">
+        <!-- Carrousel de fond -->
+        <div class="background-carousel">
+            <div class="carousel-slide active" 
+                 style="background-image: url('Gemini_Generated_Image_4bi4bb4bi4bb4bi4.png');"></div>
+            <div class="carousel-slide" 
+                 style="background-image: url('Gemini_Generated_Image_c0hodyc0hodyc0ho.png');"></div>
+            <div class="carousel-slide" 
+                 style="background-image: url('Gemini_Generated_Image_n5bjc9n5bjc9n5bj.png');"></div>
+            <div class="carousel-slide" 
+                 style="background-image: url('Gemini_Generated_Image_1kdoho1kdoho1kdo.png');"></div>
+        </div>
+
+        <!-- Logo en haut à droite -->
+        <div class="top-right-logo">
+            <img src="Tilya logo PNG.png" alt="TILYA-CO" class="brand-logo-home">
+        </div>
+
+        <!-- Contenu central -->
+        <main class="center-content">
+            <h1 class="hero-title">Nous vous conduisons<br> au cœur de votre besoin</h1>
+            <p style="margin-bottom: 40px; font-size: 1.2rem; max-width: 600px;">
+                Une logistique modernisée, digitalisée et performante.
+            </p>
+            
+            <!-- Le Bouton qui mènera à la page suivante -->
+            <a href="services.html" class="btn-cta">En savoir plus</a>
+        </main>
+    </div>
+    <!-- FIN DU WRAPPER PRINCIPAL -->
+
+    <!-- FOOTER RÉDUIT -->
+    <footer>
+        <div class="footer-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        
+        <div class="footer-main">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-contact-section">
+                        <h3 class="footer-contact-title">Contactez-nous</h3>
+                        
+                        <div class="footer-contact-list">
+                            <!-- Localisation avec lien Google Maps -->
+                            <div class="footer-contact-item" id="locationItem">
+                                <div class="footer-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="footer-contact-content">
+                                    <h4>Notre Localisation</h4>
+                                    <p>Abidjan, Côte d'Ivoire<br>Yopougon/ Azito Sicogi APPT 906 01 BP 2543 Abidjan 01</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Email avec lien mailto -->
+                            <div class="footer-contact-item" id="emailItem">
+                                <div class="footer-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="footer-contact-content">
+                                    <h4>Email</h4>
+                                    <p>tilya.corp@gmail.com<br>Réponse sous 24h</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Téléphone avec lien tel -->
+                            <div class="footer-contact-item" id="phoneItem">
+                                <div class="footer-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="footer-contact-content">
+                                    <h4>Téléphone</h4>
+                                    <p>+225 05 00 44 98 15<br>Lun-Ven: 8h-18h</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <div class="footer-copyright">
+                        &copy; 2026 Tilya-co. Tous droits réservés.
+                    </div>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon" id="whatsappIcon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation du carrousel
+            const slides = document.querySelectorAll('.carousel-slide');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            
+            // Fonction pour changer de slide
+            function changeSlide() {
+                // Retirer la classe active de toutes les slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                
+                // Ajouter la classe active à la slide actuelle
+                slides[currentSlide].classList.add('active');
+                
+                // Passer à la slide suivante
+                currentSlide = (currentSlide + 1) % totalSlides;
+            }
+            
+            // Changer de slide toutes les 3 secondes
+            const slideInterval = setInterval(changeSlide, 3000);
+            
+            // Initialiser la première slide
+            changeSlide();
+            
+            // Arrêter l'animation si l'utilisateur préfère réduire le mouvement
+            const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (mediaQuery.matches) {
+                clearInterval(slideInterval);
+                // Garder seulement la première image
+                slides.forEach((slide, index) => {
+                    if (index > 0) {
+                        slide.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Gestion des contacts dans le footer
+            // Fonction pour ouvrir la localisation dans Google Maps
+            function openLocation() {
+                const address = "Yopougon Azito Sicogi APPT 906, Abidjan, Côte d'Ivoire";
+                const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+                window.open(googleMapsUrl, '_blank');
+            }
+            
+            // Fonction pour ouvrir l'email
+            function openEmail() {
+                const email = 'tilya.corp@gmail.com';
+                const subject = 'Demande d\'information - Tilya-co Transport';
+                const body = 'Bonjour,\n\nJe souhaiterais obtenir des informations sur vos services de transport.\n\nCordialement,';
+                
+                const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailtoLink;
+            }
+            
+            // Fonction pour ouvrir le téléphone
+            function openPhone() {
+                const phoneNumber = '+2250500449815';
+                const telLink = `tel:${phoneNumber}`;
+                window.location.href = telLink;
+            }
+            
+            // Fonction pour ouvrir WhatsApp
+            function openWhatsApp() {
+                const phoneNumber = "+2250500449815";
+                const message = "Bonjour, je suis intéressé(e) par vos services de transport.";
+                const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+            
+            // Ajout des écouteurs d'événements pour les contacts
+            const locationItem = document.getElementById('locationItem');
+            const emailItem = document.getElementById('emailItem');
+            const phoneItem = document.getElementById('phoneItem');
+            const whatsappIcon = document.getElementById('whatsappIcon');
+            
+            if (locationItem) {
+                locationItem.addEventListener('click', openLocation);
+            }
+            
+            if (emailItem) {
+                emailItem.addEventListener('click', openEmail);
+            }
+            
+            if (phoneItem) {
+                phoneItem.addEventListener('click', openPhone);
+            }
+            
+            if (whatsappIcon) {
+                whatsappIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openWhatsApp();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+/* --- 1. VARIABLES & RESET --- */
+:root {
+    --primary-orange: #FF8C00; /* Orange vif */
+    --primary-blue: #0f172a;   /* Bleu nuit très foncé */
+    --text-white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 2. STYLE PAGE D'ACCUEIL --- */
+.home-body {
+    background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.6)), 
+                url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+}
+
+/* 🚀 LOGO ACCUEIL - PLUS GRAND ET VISIBLE */
+.top-right-logo {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    text-align: right;
+    z-index: 20;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); /* Ombre pour pop */
+}
+
+.brand-logo-home {
+    height: 110px !important; /* 🚀 110px au lieu de 70px */
+    width: auto;
+    display: block;
+    border-radius: 8px;
+    border: 2px solid rgba(255,140,0,0.3);
+}
+
+/* Le contenu central (Accueil) */
+.center-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-white);
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+}
+
+.btn-cta {
+    padding: 18px 50px;
+    background-color: var(--primary-orange);
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    border: 2px solid var(--primary-orange);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+    cursor: pointer;
+}
+
+.btn-cta:hover {
+    background-color: transparent;
+    color: var(--primary-orange);
+    transform: scale(1.05);
+}
+
+/* --- 3. FOOTER (Commun) --- */
+footer {
+    background-color: #050c18;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.footer-info span {
+    margin: 0 15px;
+    display: inline-block;
+}
+
+/* --- 4. HEADER PAGES INTERNES (Transport & Carrosserie) --- */
+header {
+    background-color: var(--primary-blue);
+    padding: 12px 40px; /* Moins de padding vertical */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--primary-orange); /* Bordure plus épaisse */
+    box-shadow: 0 4px 20px rgba(255,140,0,0.2); /* Ombre orange */
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-orange);
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+/* 🚀 LOGO HEADER - PLUS GRAND ET VISIBLE */
+.brand-logo-header {
+    height: 65px !important; /* 🚀 65px au lieu de 42px */
+    width: auto;
+    display: block;
+    border-radius: 6px;
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary-orange);
+}
+
+/* --- 5. SECTION INFO TRANSPORT --- */
+.transport-info-section {
+    padding: 40px 0;
+    text-align: center;
+    flex: 1;
+}
+
+/* --- BACKGROUND PAGE TRANSPORT --- */
+.transport-info-section {
+    background-image:
+        linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.78)),
+        url("Gemini_Generated_Image_ng1mxyng1mxyng1m.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.intro-transport {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+}
+
+.intro-transport {
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(255, 140, 0, 0.22);
+    border-radius: 14px;
+    padding: 26px 22px;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+}
+
+.intro-transport h1 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-shadow: 0 4px 14px rgba(0,0,0,0.55);
+}
+
+.intro-transport p {
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+
+.intro-transport a {
+    color: var(--primary-orange) !important;
+    font-weight: bold;
+    text-decoration: underline !important;
+}
+
+/* --- 6. CARROUSEL --- */
+.carousel-section {
+    margin-bottom: 50px;
+    padding: 30px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.94);
+}
+
+.carousel-track {
+    display: inline-block;
+    animation: defilement 20s linear infinite;
+}
+
+.service-card {
+    display: inline-block;
+    width: 320px;
+    height: 220px;
+    margin: 0 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    vertical-align: top;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: scale(1.02);
+}
+
+.service-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.service-info {
+    position: absolute;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.9);
+    color: white;
+    width: 100%;
+    padding: 12px;
+    white-space: normal;
+    font-size: 0.95rem;
+}
+
+@keyframes defilement {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* --- 7. INFO VILLES & ÉCOLES --- */
+.details-text-section {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 40px auto;
+    padding: 0 20px;
+    max-width: 1000px;
+    text-align: left;
+}
+
+.detail-box {
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 350px;
+    border-left: 5px solid var(--primary-orange);
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(2px);
+}
+
+.detail-box h3 {
+    color: var(--primary-blue);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.detail-box ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.detail-box li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+    color: #444;
+}
+
+.detail-box li::before {
+    content: "•";
+    color: var(--primary-orange);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    font-size: 1.2em;
+}
+
+/* --- 8. SECTION LOCATION --- */
+.rental-section-bottom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(30px);
+    z-index: 1000;
+    padding: 80px 20px;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.rental-section-bottom.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.rental-header {
+    display: none;
+}
+
+/* Formulaire Location + CROIX */
+.rental-form-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    border: 2px solid rgba(255, 140, 0, 0.3);
+    color: #fff;
+    max-width: 700px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 50px;
+    border-radius: 30px;
+    text-align: left;
+    display: block;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.5s ease;
+}
+
+.rental-section-bottom.show .rental-form-container {
+    transform: scale(1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 140, 0, 0.2);
+    border: 1px solid var(--primary-orange);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: var(--primary-orange);
+    transform: rotate(90deg);
+}
+
+.rental-form-container h3 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, var(--primary-orange), #ffa500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 18px;
+    margin-top: 20px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary-orange), #ffa500);
+    color: #0a0e1a;
+    font-size: 1.1rem;
+    font-weight: 900;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(255, 140, 0, 0.5);
+}

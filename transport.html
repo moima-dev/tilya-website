@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tilya-co – Transport & Location</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-orange: #ff8c00;
+      --dark-navy: #0a0e1a;
+      --navy-blue: #0f172a;
+      --light-orange: #ffa500;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--dark-navy);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Animated background avec particules */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 140, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 165, 0, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0e1a 0%, #0f172a 50%, #1a1f35 100%);
+      z-index: -1;
+      animation: bgPulse 15s ease-in-out infinite;
+    }
+
+    @keyframes bgPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Particules flottantes */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--primary-orange);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 20s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-100px) translateX(50px); }
+      50% { transform: translateY(-200px) translateX(-30px); }
+      75% { transform: translateY(-100px) translateX(70px); }
+    }
+
+    .container { 
+      width: min(1200px, 92%); 
+      margin: 0 auto; 
+      position: relative;
+      z-index: 1;
+    }
+
+    /* WRAPPER PRINCIPAL (tout sauf footer) */
+    .page-wrapper {
+      flex: 1 0 auto;
+      width: 100%;
+    }
+
+    /* HEADER avec l'animation améliorée */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 18px 0;
+      background: rgba(10, 14, 26, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 140, 0, 0.2);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      animation: slideDown 0.6s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+      color: #fff;
+      position: relative;
+    }
+
+    .brand img {
+      height: 65px;
+      width: auto;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 140, 0, 0.3);
+      box-shadow: 0 0 30px rgba(255, 140, 0, 0.4);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 30px rgba(255, 140, 0, 0.4); }
+      50% { box-shadow: 0 0 50px rgba(255, 140, 0, 0.8); }
+    }
+
+    .brand:hover img {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 60px rgba(255, 140, 0, 0.9);
+    }
+
+    .brand span {
+      font-weight: 900;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, var(--primary-orange), var(--light-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    nav a {
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 140, 0, 0.3), transparent);
+      transition: left 0.6s;
+    }
+
+    nav a:hover::before { left: 100%; }
+
+    nav a:hover {
+      background: rgba(255, 140, 0, 0.15);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    nav a.active {
+      background: linear-gradient(135deg, var(--primary-orange), var(--light-orange));
+      color: var(--dark-navy);
+      box-shadow: 0 10px 30px rgba(255, 140, 0, 0.5);
+    }
+
+    /* HERO SECTION SPECTACULAIRE */
+    .hero {
+      padding: 120px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 140, 0, 0.1) 0%, transparent 70%);
+      animation: rotate 30s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-intro {
+      text-align: center;
+      margin-bottom: 100px;
+      position: relative;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-intro h1 {
+      font-size: 4.5rem;
+      font-weight: 900;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #fff 0%, var(--primary-orange) 50%, #fff 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s ease infinite;
+      text-shadow: 0 0 80px rgba(255, 140, 0, 0.5);
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-intro p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 800px;
+      margin: 0 auto 25px;
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    .hero-intro a {
+      color: var(--primary-orange);
+      font-weight: 800;
+      position: relative;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .hero-intro a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-orange), transparent);
+      transition: width 0.5s ease;
+    }
+
+    .hero-intro a:hover::after { width: 100%; }
+
+    /* GRILLE DE SERVICES MAGNIFIQUE */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin: 80px auto;
+      max-width: 1000px;
+    }
+
+    .service-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 140, 0, 0.2);
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      animation: cardFadeIn 0.8s ease-out backwards;
+    }
+
+    .service-card:nth-child(1) { animation-delay: 0.1s; }
+    .service-card:nth-child(2) { animation-delay: 0.2s; }
+    .service-card:nth-child(3) { animation-delay: 0.3s; }
+    .service-card:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(50px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 140, 0, 0.2), transparent);
+      transition: left 0.8s;
+      z-index: 1;
+    }
+
+    .service-card:hover::before { left: 100%; }
+
+    .service-card:hover {
+      transform: translateY(-20px) scale(1.05);
+      box-shadow: 
+        0 40px 80px rgba(255, 140, 0, 0.4),
+        0 0 60px rgba(255, 140, 0, 0.3);
+      border-color: var(--primary-orange);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: all 0.6s ease;
+      filter: brightness(0.8) saturate(1.1);
+    }
+
+    .service-card:hover img {
+      transform: scale(1.2);
+      filter: brightness(1) saturate(1.3);
+    }
+
+    .service-info {
+      padding: 30px;
+      background: rgba(10, 14, 26, 0.95);
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-info strong {
+      display: block;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--primary-orange), var(--light-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .service-info span {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+    }
+
+    /* SECTIONS DÉTAILS PREMIUM */
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 50px;
+      margin: 100px auto;
+      max-width: 1000px;
+    }
+
+    .detail-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 140, 0, 0.3);
+      border-radius: 30px;
+      padding: 50px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      animation: slideInRight 1s ease-out backwards;
+    }
+
+    .detail-box:nth-child(2) { animation: slideInLeft 1s ease-out backwards; }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .detail-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary-orange), var(--light-orange));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.6s ease;
+    }
+
+    .detail-box:hover::before { transform: scaleX(1); }
+
+    .detail-box:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 50px 100px rgba(255, 140, 0, 0.3);
+      border-color: var(--primary-orange);
+    }
+
+    .detail-box h3 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .detail-box ul {
+      list-style: none;
+    }
+
+    .detail-box li {
+      padding: 15px 0 15px 30px;
+      font-size: 1.1rem;
+      position: relative;
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+    }
+
+    .detail-box li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+    }
+
+    .detail-box li:hover {
+      padding-left: 40px;
+      color: #fff;
+    }
+
+    .detail-box li:hover::before {
+      transform: translateX(10px) scale(1.2);
+    }
+
+    /* Styles pour l'animation des écoles partenaires */
+    .school-item {
+      position: relative;
+    }
+
+    /* ANIMATIONS POUR LES VILLES */
+    .city-schools {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      padding-left: 30px;
+    }
+
+    .city-schools.visible {
+      max-height: 300px;
+    }
+
+    .city-school-item {
+      padding: 8px 0 8px 20px;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .city-hover .city-school-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .city-school-item:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+
+    .city-school-item:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+
+    .city-school-item:nth-child(3) {
+      transition-delay: 0.3s;
+    }
+
+    .city-item {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .city-item:hover {
+      color: var(--primary-orange);
+      padding-left: 40px;
+    }
+
+    .city-item:hover::before {
+      content: '▶';
+      position: absolute;
+      left: 15px;
+      color: var(--primary-orange);
+      animation: bounceRight 0.6s ease infinite alternate;
+    }
+
+    @keyframes bounceRight {
+      from { transform: translateX(0); }
+      to { transform: translateX(5px); }
+    }
+
+    .sub-schools {
+      padding-left: 20px;
+      margin-top: 10px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .sub-schools.visible {
+      max-height: 200px;
+    }
+
+    .sub-school-item {
+      padding: 8px 0 8px 30px;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+      position: relative;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.4s ease;
+    }
+
+    .methodist-hover .sub-school-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sub-school-item:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+
+    .sub-school-item:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+
+    .methodist-school {
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .methodist-school:hover {
+      color: var(--primary-orange);
+      padding-left: 40px;
+    }
+
+    .methodist-school:hover::before {
+      content: '▶';
+      position: absolute;
+      left: 15px;
+      color: var(--primary-orange);
+      animation: bounceRight 0.6s ease infinite alternate;
+    }
+
+    /* Ajout d'une animation d'attention pour l'école méthodiste */
+    @keyframes pulseAttention {
+      0%, 100% { 
+        color: rgba(255, 255, 255, 0.9); 
+        text-shadow: 0 0 0 rgba(255, 140, 0, 0);
+      }
+      50% { 
+        color: var(--primary-orange); 
+        text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+      }
+    }
+
+    /* CTA LOCATION SPECTACULAIRE */
+    .location-cta {
+      margin: 100px auto;
+      padding: 70px 60px;
+      border-radius: 40px;
+      background: 
+        linear-gradient(135deg, rgba(255, 140, 0, 0.15), rgba(255, 165, 0, 0.05)),
+        rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 140, 0, 0.4);
+      box-shadow: 
+        0 30px 80px rgba(255, 140, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: pulseGlow 3s ease-in-out infinite;
+      max-width: 900px;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 30px 80px rgba(255, 140, 0, 0.3); }
+      50% { box-shadow: 0 40px 100px rgba(255, 140, 0, 0.5); }
+    }
+
+    .location-cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 140, 0, 0.1), transparent);
+      animation: rotate 6s linear infinite;
+    }
+
+    .location-cta > * { position: relative; z-index: 1; }
+
+    .location-cta strong {
+      display: block;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff, var(--primary-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .location-cta span {
+      display: block;
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 60px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary-orange), var(--light-orange));
+      color: var(--dark-navy);
+      font-weight: 900;
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 20px 50px rgba(255, 140, 0, 0.4);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s;
+    }
+
+    .btn-primary:hover::before { left: 100%; }
+
+    .btn-primary:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 30px 70px rgba(255, 140, 0, 0.6);
+    }
+
+    /* FORMULAIRE MODAL - AMÉLIORÉ AVEC NOUVEAUX CHAMPS */
+    .rental-section-bottom {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(30px);
+      z-index: 1000;
+      padding: 80px 20px;
+      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .rental-section-bottom.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .rental-form-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(30px);
+      border: 2px solid rgba(255, 140, 0, 0.3);
+      color: #fff;
+      max-width: 800px;
+      width: 90%;
+      margin: 0 auto;
+      padding: 50px;
+      border-radius: 30px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      position: relative;
+      transform: scale(0.8);
+      transition: transform 0.5s ease;
+    }
+
+    .rental-section-bottom.show .rental-form-container {
+      transform: scale(1);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 140, 0, 0.2);
+      border: 1px solid var(--primary-orange);
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: var(--primary-orange);
+      transform: rotate(90deg);
+    }
+
+    .rental-form-container h3 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, var(--primary-orange), #ffa500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-orange);
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .form-group input[type="date"],
+    .form-group input[type="time"] {
+      color-scheme: dark;
+    }
+
+    /* Style pour les champs de date et heure */
+    .form-group input[type="date"]::-webkit-calendar-picker-indicator,
+    .form-group input[type="time"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    .form-group input[type="date"]::-webkit-calendar-picker-indicator:hover,
+    .form-group input[type="time"]::-webkit-calendar-picker-indicator:hover {
+      opacity: 1;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 18px;
+      margin-top: 20px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary-orange), #ffa500);
+      color: #0a0e1a;
+      font-size: 1.1rem;
+      font-weight: 900;
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .btn-submit:hover::before {
+      left: 100%;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(255, 140, 0, 0.5);
+    }
+
+    /* ===== FOOTER SIMPLIFIÉ ET ALIGNÉ HORIZONTALEMENT ===== */
+    footer {
+      flex-shrink: 0;
+      width: 100%;
+      background: #0f172a;
+      position: relative;
+      margin-top: auto;
+      padding: 0;
+    }
+
+    .footer-wave {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      z-index: 1;
+    }
+
+    .footer-wave svg {
+      position: relative;
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 70px;
+    }
+
+    .footer-wave .shape-fill {
+      fill: #0f172a;
+    }
+
+    .footer-main {
+      background: #0f172a;
+      padding: 60px 0 30px;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .footer-container {
+      width: min(1200px, 94%);
+      margin: 0 auto;
+    }
+
+    /* Suppression de la grille à deux colonnes */
+    .footer-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    /* Section contact horizontal */
+    .footer-contact-section {
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .footer-contact-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, #fff, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+
+    .footer-contact-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 25px 20px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+      min-width: 280px;
+      max-width: 320px;
+      flex: 1;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .footer-contact-item:hover {
+      background: rgba(255,140,0,0.08);
+      border-color: rgba(255,140,0,0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255,140,0,0.15);
+    }
+
+    .footer-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(255,140,0,0.2), rgba(255,140,0,0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #ff8c00;
+      flex-shrink: 0;
+    }
+
+    .footer-contact-content {
+      text-align: center;
+    }
+
+    .footer-contact-content h4 {
+      margin: 0 0 10px 0;
+      font-size: 1.3rem;
+      color: white;
+    }
+
+    .footer-contact-content p {
+      margin: 0;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .footer-contact-content a {
+      color: #ff8c00;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .footer-contact-content a:hover {
+      text-decoration: underline;
+      color: #ffa500;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 30px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .footer-copyright {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-icon:hover {
+      background: linear-gradient(135deg, #ff8c00, #ffa500);
+      color: #0f172a;
+      transform: translateY(-3px);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero-intro h1 {
+        font-size: 3.5rem;
+      }
+      
+      .services-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+      }
+      
+      .footer-contact-list {
+        gap: 20px;
+      }
+      
+      .footer-contact-item {
+        min-width: 250px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+      
+      .hero-intro h1 {
+        font-size: 2.5rem;
+      }
+      
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .detail-box {
+        padding: 30px 25px;
+      }
+      
+      .location-cta {
+        padding: 40px 30px;
+      }
+      
+      .location-cta strong {
+        font-size: 2rem;
+      }
+      
+      .footer-contact-list {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .footer-contact-item {
+        width: 100%;
+        max-width: 350px;
+      }
+      
+      .footer-main {
+        padding: 50px 0 25px;
+      }
+      
+      .footer-contact-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+      }
+      
+      .form-row {
+        flex-direction: column;
+      }
+      
+      .rental-form-container {
+        padding: 40px 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-intro h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-intro p {
+        font-size: 1.1rem;
+      }
+      
+      .service-card img {
+        height: 220px;
+      }
+      
+      .footer-contact-item {
+        padding: 20px 15px;
+      }
+      
+      .footer-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+      
+      .location-cta strong {
+        font-size: 1.6rem;
+      }
+      
+      .location-cta span {
+        font-size: 1.1rem;
+      }
+      
+      .rental-form-container {
+        padding: 30px 20px;
+      }
+      
+      .rental-form-container h3 {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { 
+        animation-duration: 0.01ms !important; 
+        animation-iteration-count: 1 !important; 
+        transition-duration: 0.01ms !important; 
+        scroll-behavior: auto !important; 
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- WRAPPER PRINCIPAL (tout sauf footer) -->
+  <div class="page-wrapper">
+    <!-- Particules flottantes -->
+    <div class="particles" id="particles"></div>
+
+    <!-- HEADER avec l'animation améliorée -->
+    <header>
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <img src="Tilya logo PNG.png" alt="TILYA-CO">
+          <span>TILYA-CO</span>
+        </a>
+        <nav>
+          <a href="index.html">Accueil</a>
+          <a class="active" href="transport.html">Transport</a>
+          <a href="carrosserie.html">Carrosserie</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main class="hero">
+      <div class="container">
+        <div class="hero-intro">
+          <h1>Transport d'Élèves & Logistique</h1>
+          <p>
+            Nous assurons un transport sécurisé et ponctuel pour les élèves dans les principales villes de Côte d'Ivoire.
+            La sécurité de vos enfants et la fiabilité de nos services sont notre priorité absolue.
+          </p>
+          <p style="margin-top: 20px;">
+            Nous proposons également un service de
+            <a href="#location-section">location de véhicules</a>
+            pour vos déplacements ponctuels ou professionnels.
+          </p>
+        </div>
+
+        <!-- SERVICES -->
+        <div class="services-grid">
+          <div class="service-card">
+            <!-- PHOTO MODIFIÉE (TRANSPORT SCOLAIRE) -->
+            <img src="Gemini_Generated_Image_xqekgyxqekgyxqek.png" alt="Transport Scolaire">
+            <div class="service-info">
+              <strong> Transport Scolaire</strong>
+              <span>Sécurité maximale pour vos enfants</span>
+            </div>
+          </div>
+          <div class="service-card">
+            <!-- PHOTO MODIFIÉE (ABIDJAN) -->
+            <img src="Gemini_Generated_Image_fauubefauubefauu.png" alt="École Abidjan">
+            <div class="service-info">
+              <strong> Abidjan</strong>
+              <span>Desserte de toutes les communes</span>
+            </div>
+          </div>
+          <div class="service-card">
+            <!-- PHOTO MODIFIÉE (YAMOUSSOUKRO) -->
+            <img src="Gemini_Generated_Image_aiobj4aiobj4aiob.png" alt="Yamoussoukro">
+            <div class="service-info">
+              <strong> Yamoussoukro</strong>
+              <span>Couverture complète de la zone</span>
+            </div>
+          </div>
+          <div class="service-card">
+            <img src="Gemini_Generated_Image_3wwbi3wwbi3wwbi3.png" alt="Flotte Récente">
+            <div class="service-info">
+              <strong> Flotte Moderne</strong>
+              <span>Véhicules climatisés et confortables</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DÉTAILS -->
+        <div class="details-grid">
+          <div class="detail-box" id="cities-box">
+            <h3><span></span> Nos Villes</h3>
+            <ul>
+              <li class="city-item" data-city="abidjan">Abidjan (Cocody, Yopougon, Marcory...)</li>
+              <li class="city-item" data-city="yamoussoukro">Yamoussoukro</li>
+            </ul>
+          </div>
+          <div class="detail-box" id="schools-box">
+            <h3><span></span> Écoles Partenaires</h3>
+            <ul>
+              <li class="school-item methodist-school">École méthodiste</li>
+              <li class="school-item">École catholique Yamoussoukro</li>
+              <li class="school-item">Groupe Scolaire Sinzibo</li>
+              <li class="school-item">Lycée Mamie Adjoua</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CTA LOCATION -->
+        <div class="location-cta" id="location-section">
+          <strong> Besoin de louer un véhicule ?</strong>
+          <span>Une solution flexible pour vos déplacements ponctuels ou professionnels.</span>
+          <button class="btn-primary" onclick="toggleRental()">
+             Accéder au formulaire
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- FORMULAIRE LOCATION - AVEC NOUVEAUX CHAMPS -->
+    <section class="rental-section-bottom" id="rental-section">
+      <div class="rental-form-container">
+        <button class="close-btn" onclick="closeRental()">✕</button>
+        <h3>Demande de Location</h3>
+        <form id="rentalForm">
+          <!-- Ligne 1 : Nom & Téléphone -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="rentalName">Nom & Prénoms</label>
+              <input type="text" id="rentalName" name="name" placeholder="Votre nom complet" required>
+            </div>
+            <div class="form-group">
+              <label for="rentalPhone">Téléphone</label>
+              <input type="tel" id="rentalPhone" name="phone" placeholder="+225 XX XX XX XX" required>
+            </div>
+          </div>
+          
+          <!-- Ligne 2 : Email -->
+          <div class="form-group">
+            <label for="rentalEmail">Email</label>
+            <input type="email" id="rentalEmail" name="email" placeholder="votre@email.com" required>
+          </div>
+          
+          <!-- Ligne 3 : Date départ & Date retour -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="rentalStartDate"> Date de départ</label>
+              <input type="date" id="rentalStartDate" name="startDate" required>
+            </div>
+            <div class="form-group">
+              <label for="rentalEndDate"> Date de retour</label>
+              <input type="date" id="rentalEndDate" name="endDate" required>
+            </div>
+          </div>
+          
+          <!-- Ligne 4 : Heure départ & Point de départ -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="rentalStartTime"> Heure de départ</label>
+              <input type="time" id="rentalStartTime" name="startTime" required>
+            </div>
+            <div class="form-group">
+              <label for="rentalStartPoint"> Point de départ</label>
+              <input type="text" id="rentalStartPoint" name="startPoint" placeholder="Adresse précise" required>
+            </div>
+          </div>
+          
+          <!-- Ligne 5 : Destination -->
+          <div class="form-group">
+            <label for="rentalDestination"> Destination</label>
+            <input type="text" id="rentalDestination" name="destination" placeholder="Votre destination" required>
+          </div>
+          
+          <button type="submit" class="btn-submit">
+            <i class="fab fa-whatsapp" style="margin-right: 10px;"></i>
+            Envoyer la demande
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+  <!-- FIN DU WRAPPER PRINCIPAL -->
+
+  <!-- FOOTER SIMPLIFIÉ ET ALIGNÉ HORIZONTALEMENT -->
+  <footer>
+    <div class="footer-wave">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+      </svg>
+    </div>
+    
+    <div class="footer-main">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <div class="footer-contact-section">
+            <h3 class="footer-contact-title">Contactez-nous</h3>
+            
+            <div class="footer-contact-list">
+              <!-- Localisation avec lien Google Maps -->
+              <div class="footer-contact-item" id="locationItem">
+                <div class="footer-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="footer-contact-content">
+                  <h4>Notre Localisation</h4>
+                  <p>Abidjan, Côte d'Ivoire<br>Yopougon/ Azito Sicogi APPT 906 01 BP 2543 Abidjan 01</p>
+                </div>
+              </div>
+              
+              <!-- Email avec lien mailto -->
+              <div class="footer-contact-item" id="emailItem">
+                <div class="footer-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="footer-contact-content">
+                  <h4>Email</h4>
+                  <p>tilya.corp@gmail.com<br>Réponse sous 24h</p>
+                </div>
+              </div>
+              
+              <!-- Téléphone avec lien tel - NUMÉRO MODIFIÉ -->
+              <div class="footer-contact-item" id="phoneItem">
+                <div class="footer-icon">
+                  <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="footer-contact-content">
+                  <h4>Téléphone</h4>
+                  <p>+225 07 69 13 13 89<br>Lun-Ven: 8h-18h</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <div class="footer-copyright">
+            &copy; 2026 Tilya-co. Tous droits réservés.
+          </div>
+          <div class="footer-social">
+            <!-- Facebook avec lien vers la page Facebook de l'entreprise -->
+            <a href="https://www.facebook.com/TilyaCorporation" target="_blank" class="social-icon" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <!-- Instagram (lien vide pour l'instant) -->
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <!-- LinkedIn (lien vide pour l'instant) -->
+            <a href="#" class="social-icon" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <!-- WhatsApp avec lien direct -->
+            <a href="#" class="social-icon" id="whatsappIcon" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Numéro WhatsApp du footer
+    const whatsappNumber = "+2250769131389";
+    
+    // Particules flottantes
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Formulaire modal
+    function toggleRental() {
+      const section = document.getElementById('rental-section');
+      section.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      
+      // Définir la date minimale à aujourd'hui
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('rentalStartDate').min = today;
+      document.getElementById('rentalEndDate').min = today;
+    }
+
+    function closeRental() {
+      const section = document.getElementById('rental-section');
+      section.classList.remove('show');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Fermer modal en cliquant dehors
+    document.getElementById('rental-section').addEventListener('click', function(e) {
+      if (e.target === this) closeRental();
+    });
+
+    // Gestion de l'animation pour les villes et écoles
+    document.addEventListener('DOMContentLoaded', function() {
+      const citiesBox = document.getElementById('cities-box');
+      const schoolsBox = document.getElementById('schools-box');
+      const methodistSchool = document.querySelector('.methodist-school');
+      
+      // Créer les sous-écoles pour l'école méthodiste
+      const methodistSubSchools = document.createElement('div');
+      methodistSubSchools.className = 'sub-schools';
+      methodistSubSchools.innerHTML = `
+        <div class="sub-school-item">CSM Plateau</div>
+        <div class="sub-school-item">CSM Cocody</div>
+      `;
+      
+      // Insérer après l'école méthodiste
+      methodistSchool.parentNode.insertBefore(methodistSubSchools, methodistSchool.nextSibling);
+      
+      // Créer les écoles par ville
+      const abidjanItem = document.querySelector('[data-city="abidjan"]');
+      const yamoussoukroItem = document.querySelector('[data-city="yamoussoukro"]');
+      
+      // Écoles d'Abidjan
+      const abidjanSchools = document.createElement('div');
+      abidjanSchools.className = 'city-schools';
+      abidjanSchools.innerHTML = `
+        <div class="city-school-item">CSM Plateau</div>
+        <div class="city-school-item">CSM Cocody</div>
+      `;
+      
+      // Écoles de Yamoussoukro
+      const yamoussoukroSchools = document.createElement('div');
+      yamoussoukroSchools.className = 'city-schools';
+      yamoussoukroSchools.innerHTML = `
+        <div class="city-school-item">École catholique Yamoussoukro</div>
+        <div class="city-school-item">Groupe Scolaire Sinzibo</div>
+        <div class="city-school-item">Lycée Mamie Adjoua</div>
+      `;
+      
+      // Insérer les écoles après chaque ville
+      abidjanItem.parentNode.insertBefore(abidjanSchools, abidjanItem.nextSibling);
+      yamoussoukroItem.parentNode.insertBefore(yamoussoukroSchools, yamoussoukroItem.nextSibling);
+      
+      // Gestion du survol pour l'école méthodiste
+      let methodistHovering = false;
+      
+      methodistSchool.addEventListener('mouseenter', function() {
+        methodistHovering = true;
+        schoolsBox.classList.add('methodist-hover');
+        methodistSubSchools.classList.add('visible');
+        methodistSchool.style.color = 'var(--primary-orange)';
+        methodistSchool.style.fontWeight = 'bold';
+      });
+      
+      methodistSchool.addEventListener('mouseleave', function() {
+        setTimeout(() => {
+          if (!methodistHovering && !methodistSubSchools.matches(':hover')) {
+            schoolsBox.classList.remove('methodist-hover');
+            methodistSubSchools.classList.remove('visible');
+            methodistSchool.style.color = '';
+            methodistSchool.style.fontWeight = '';
+          }
+        }, 100);
+      });
+      
+      methodistSubSchools.addEventListener('mouseenter', function() {
+        methodistHovering = true;
+        schoolsBox.classList.add('methodist-hover');
+      });
+      
+      methodistSubSchools.addEventListener('mouseleave', function() {
+        methodistHovering = false;
+        setTimeout(() => {
+          if (!methodistSchool.matches(':hover')) {
+            schoolsBox.classList.remove('methodist-hover');
+            methodistSubSchools.classList.remove('visible');
+            methodistSchool.style.color = '';
+            methodistSchool.style.fontWeight = '';
+          }
+        }, 100);
+      });
+      
+      // Gestion du survol pour les villes
+      let cityHovering = {
+        abidjan: false,
+        yamoussoukro: false
+      };
+      
+      // Fonction pour gérer le survol d'une ville
+      function setupCityHover(cityElement, cityName) {
+        const citySchools = cityElement.nextElementSibling;
+        
+        cityElement.addEventListener('mouseenter', function() {
+          cityHovering[cityName] = true;
+          citiesBox.classList.add('city-hover');
+          citySchools.classList.add('visible');
+          cityElement.style.color = 'var(--primary-orange)';
+          cityElement.style.fontWeight = 'bold';
+        });
+        
+        cityElement.addEventListener('mouseleave', function() {
+          setTimeout(() => {
+            if (!cityHovering[cityName] && !citySchools.matches(':hover')) {
+              citiesBox.classList.remove('city-hover');
+              citySchools.classList.remove('visible');
+              cityElement.style.color = '';
+              cityElement.style.fontWeight = '';
+            }
+          }, 100);
+        });
+        
+        citySchools.addEventListener('mouseenter', function() {
+          cityHovering[cityName] = true;
+          citiesBox.classList.add('city-hover');
+        });
+        
+        citySchools.addEventListener('mouseleave', function() {
+          cityHovering[cityName] = false;
+          setTimeout(() => {
+            if (!cityElement.matches(':hover')) {
+              citiesBox.classList.remove('city-hover');
+              citySchools.classList.remove('visible');
+              cityElement.style.color = '';
+              cityElement.style.fontWeight = '';
+            }
+          }, 100);
+        });
+      }
+      
+      // Configurer les survols pour chaque ville
+      setupCityHover(abidjanItem, 'abidjan');
+      setupCityHover(yamoussoukroItem, 'yamoussoukro');
+      
+      // Animation au chargement de la page pour attirer l'attention
+      setTimeout(() => {
+        methodistSchool.style.animation = 'pulseAttention 2s ease-in-out';
+        methodistSchool.style.animationDelay = '1s';
+      }, 1000);
+      
+      // Initialiser les fonctions de contact du footer
+      initFooterContacts();
+      
+      // Gestion du formulaire de location avec nouveaux champs
+      initRentalForm();
+    });
+
+    // Fonction pour ouvrir la localisation dans Google Maps
+    function openLocation() {
+      const address = "Yopougon Azito Sicogi APPT 906, Abidjan, Côte d'Ivoire";
+      const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+      window.open(googleMapsUrl, '_blank');
+    }
+    
+    // Fonction pour ouvrir l'email
+    function openEmail() {
+      const email = 'tilya.corp@gmail.com';
+      const subject = 'Demande d\'information - Tilya-co Transport';
+      const body = 'Bonjour,\n\nJe souhaiterais obtenir des informations sur vos services de transport scolaire et location.\n\nCordialement,';
+      
+      const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+    }
+    
+    // Fonction pour ouvrir le téléphone
+    function openPhone() {
+      const phoneNumber = '+2250769131389';
+      const telLink = `tel:${phoneNumber}`;
+      window.location.href = telLink;
+    }
+    
+    // Fonction pour ouvrir WhatsApp avec message personnalisé
+    function openWhatsApp(message = '') {
+      const phoneNumber = whatsappNumber;
+      const defaultMessage = "Bonjour, je suis intéressé(e) par vos services de transport scolaire.";
+      const finalMessage = message || defaultMessage;
+      const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(finalMessage)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+    
+    // Gestion du formulaire de location - AVEC NOUVEAUX CHAMPS
+    function initRentalForm() {
+      const rentalForm = document.getElementById('rentalForm');
+      
+      if (rentalForm) {
+        rentalForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Récupération des données du formulaire
+          const name = document.getElementById('rentalName').value;
+          const phone = document.getElementById('rentalPhone').value;
+          const email = document.getElementById('rentalEmail').value;
+          const startDate = document.getElementById('rentalStartDate').value;
+          const endDate = document.getElementById('rentalEndDate').value;
+          const startTime = document.getElementById('rentalStartTime').value;
+          const startPoint = document.getElementById('rentalStartPoint').value;
+          const destination = document.getElementById('rentalDestination').value;
+          
+          // Formatage des dates en français
+          const formatDateFr = (dateStr) => {
+            if (!dateStr) return 'Non spécifié';
+            const [year, month, day] = dateStr.split('-');
+            return `${day}/${month}/${year}`;
+          };
+          
+          // Formatage de l'heure en français
+          const formatTimeFr = (timeStr) => {
+            if (!timeStr) return 'Non spécifié';
+            return timeStr;
+          };
+          
+          // Création du message WhatsApp enrichi avec tous les détails
+          const whatsappMessage = 
+            `🚗 *NOUVELLE DEMANDE DE LOCATION* - Tilya-co Transport%0A%0A` +
+            `👤 *CLIENT*%0A` +
+            `━━━━━━━━━━━━━━%0A` +
+            `▪️ *Nom*: ${name}%0A` +
+            `▪️ *Téléphone*: ${phone}%0A` +
+            `▪️ *Email*: ${email}%0A%0A` +
+            
+            `📅 *PÉRIODE DE LOCATION*%0A` +
+            `━━━━━━━━━━━━━━%0A` +
+            `▪️ *Date de départ*: ${formatDateFr(startDate)}%0A` +
+            `▪️ *Date de retour*: ${formatDateFr(endDate)}%0A` +
+            `▪️ *Heure de départ*: ${formatTimeFr(startTime)}%0A%0A` +
+            
+            `📍 *ITINÉRAIRE*%0A` +
+            `━━━━━━━━━━━━━━%0A` +
+            `▪️ *Point de départ*: ${startPoint}%0A` +
+            `▪️ *Destination*: ${destination}%0A%0A` +
+            
+            `📊 *RÉCAPITULATIF*%0A` +
+            `━━━━━━━━━━━━━━%0A` +
+            `▪️ Durée de location: ${startDate && endDate ? `Du ${formatDateFr(startDate)} au ${formatDateFr(endDate)}` : 'Non spécifiée'}%0A%0A` +
+            
+            `⏱️ *Demande envoyée le*: ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'})}%0A` +
+            `━━━━━━━━━━━━━━%0A` +
+            `Merci de traiter cette demande dans les plus brefs délais.`;
+          
+          // Ouvrir WhatsApp avec le message enrichi
+          openWhatsApp(whatsappMessage);
+          
+          // Afficher un message de confirmation
+          alert('✅ Votre demande de location a été préparée !\n\nVous allez être redirigé vers WhatsApp pour finaliser l\'envoi.');
+          closeRental();
+          
+          // Réinitialiser le formulaire
+          this.reset();
+        });
+      }
+    }
+    
+    // Initialisation des contacts du footer
+    function initFooterContacts() {
+      const locationItem = document.getElementById('locationItem');
+      const emailItem = document.getElementById('emailItem');
+      const phoneItem = document.getElementById('phoneItem');
+      const whatsappIcon = document.getElementById('whatsappIcon');
+      
+      if (locationItem) {
+        locationItem.addEventListener('click', openLocation);
+      }
+      
+      if (emailItem) {
+        emailItem.addEventListener('click', openEmail);
+      }
+      
+      if (phoneItem) {
+        phoneItem.addEventListener('click', openPhone);
+      }
+      
+      if (whatsappIcon) {
+        whatsappIcon.addEventListener('click', function(e) {
+          e.preventDefault();
+          openWhatsApp();
+        });
+      }
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Initialiser particules
+    createParticles();
+  </script>
+</body>
+</html>

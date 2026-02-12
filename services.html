@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tilya-co – Nos Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* ===== RESET ET BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      color: #fff;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    body.services-page {
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(255, 140, 0, 0.18), transparent 60%),
+        radial-gradient(900px 500px at 80% 20%, rgba(255, 140, 0, 0.10), transparent 60%),
+        linear-gradient(135deg, #0f172a, #0b1222);
+      position: relative; /* Pour positionner le logo */
+    }
+
+    /* 🚀 LOGO EN HAUT À DROITE (sans header) */
+    .top-right-logo {
+      position: absolute;
+      top: 25px;
+      right: 40px;
+      z-index: 100;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    }
+
+    .top-right-logo img {
+      height: 85px !important; /* Grand et visible */
+      width: auto;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 140, 0, 0.3);
+      box-shadow: 0 0 30px rgba(255, 140, 0, 0.4);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 30px rgba(255, 140, 0, 0.4); }
+      50% { box-shadow: 0 0 50px rgba(255, 140, 0, 0.8); }
+    }
+
+    .top-right-logo:hover img {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 60px rgba(255, 140, 0, 0.9);
+    }
+
+    /* WRAPPER PRINCIPAL (tout sauf footer) */
+    .page-wrapper {
+      flex: 1 0 auto;
+      width: 100%;
+    }
+
+    .services-hero {
+      padding: 140px 20px 30px; /* Plus d'espace en haut pour le logo */
+      text-align: center;
+      position: relative;
+    }
+
+    .services-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #fff, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+    }
+
+    .services-hero p {
+      max-width: 850px;
+      margin: 0 auto;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+
+    .services-cards-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 80px;
+    }
+
+    .services-cards {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    @media (max-width: 900px) {
+      .services-cards { 
+        grid-template-columns: 1fr; 
+        max-width: 500px;
+      }
+      .services-hero { padding-top: 120px; }
+      .top-right-logo { right: 20px; top: 20px; }
+      .top-right-logo img { height: 70px !important; }
+    }
+
+    .service-big-card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+      transform: translateY(0);
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+      isolation: isolate;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    .service-big-card:nth-child(1) { animation-delay: 0.1s; }
+    .service-big-card:nth-child(2) { animation-delay: 0.2s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .service-big-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(135deg, rgba(255,140,0,0.65), rgba(255,140,0,0.0), rgba(255,140,0,0.35));
+      opacity: 0;
+      transition: opacity .35s ease;
+      z-index: 0;
+    }
+
+    .service-big-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 25px 70px rgba(255, 140, 0, 0.18), 0 18px 55px rgba(0,0,0,0.45);
+      border-color: rgba(255,140,0,0.45);
+    }
+
+    .service-big-card:hover::before { opacity: 1; }
+
+    .service-big-img {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .service-big-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      transition: transform .6s ease;
+      filter: saturate(1.05);
+    }
+
+    .service-big-card:hover .service-big-img img { transform: scale(1.12); }
+
+    .service-big-img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15,23,42,0.8), rgba(15,23,42,0.15));
+    }
+
+    .service-big-content {
+      position: relative;
+      z-index: 2;
+      padding: 22px 22px 26px;
+      background: rgba(15,23,42,0.65);
+      backdrop-filter: blur(8px);
+    }
+
+    .service-big-content h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .service-big-content p {
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .service-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .chip {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,140,0,0.14);
+      border: 1px solid rgba(255,140,0,0.28);
+      color: rgba(255,255,255,0.92);
+      transition: all 0.3s ease;
+    }
+
+    .service-big-card:hover .chip {
+      background: rgba(255,140,0,0.25);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 26px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 2px solid #ff8c00;
+      color: white;
+      background: rgba(255,140,0,0.10);
+      transition: transform .25s ease, background .25s ease, color .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-secondary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .btn-secondary:hover::before {
+      left: 100%;
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #ff8c00, #ffa500);
+      transform: translateY(-2px);
+      color: #0f172a;
+      box-shadow: 0 15px 40px rgba(255,140,0,0.3);
+    }
+
+    /* ===== FOOTER SIMPLIFIÉ ET ALIGNÉ HORIZONTALEMENT ===== */
+    footer {
+      flex-shrink: 0;
+      width: 100%;
+      background: #0f172a;
+      position: relative;
+      margin-top: auto;
+      padding: 0;
+    }
+
+    .footer-wave {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      z-index: 1;
+    }
+
+    .footer-wave svg {
+      position: relative;
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 70px;
+    }
+
+    .footer-wave .shape-fill {
+      fill: #0f172a;
+    }
+
+    .footer-main {
+      background: #0f172a;
+      padding: 60px 0 30px;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .footer-container {
+      width: min(1200px, 94%);
+      margin: 0 auto;
+    }
+
+    /* Suppression de la grille à deux colonnes */
+    .footer-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    /* Section contact horizontal */
+    .footer-contact-section {
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .footer-contact-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, #fff, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+
+    .footer-contact-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 25px 20px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+      min-width: 280px;
+      max-width: 320px;
+      flex: 1;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .footer-contact-item:hover {
+      background: rgba(255,140,0,0.08);
+      border-color: rgba(255,140,0,0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255,140,0,0.15);
+    }
+
+    .footer-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(255,140,0,0.2), rgba(255,140,0,0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #ff8c00;
+      flex-shrink: 0;
+    }
+
+    .footer-contact-content {
+      text-align: center;
+    }
+
+    .footer-contact-content h4 {
+      margin: 0 0 10px 0;
+      font-size: 1.3rem;
+      color: white;
+    }
+
+    .footer-contact-content p {
+      margin: 0;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .footer-contact-content a {
+      color: #ff8c00;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .footer-contact-content a:hover {
+      text-decoration: underline;
+      color: #ffa500;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 30px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .footer-copyright {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-icon:hover {
+      background: linear-gradient(135deg, #ff8c00, #ffa500);
+      color: #0f172a;
+      transform: translateY(-3px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .services-hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .footer-contact-list {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .footer-contact-item {
+        width: 100%;
+        max-width: 350px;
+      }
+      
+      .footer-main {
+        padding: 50px 0 25px;
+      }
+      
+      .footer-contact-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+      }
+      
+      .services-hero {
+        padding: 120px 15px 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .services-hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .services-hero p {
+        font-size: 1rem;
+      }
+      
+      .service-big-content {
+        padding: 20px;
+      }
+      
+      .service-big-img {
+        height: 200px;
+      }
+      
+      .footer-contact-item {
+        padding: 20px 15px;
+      }
+      
+      .footer-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+      
+      .top-right-logo img {
+        height: 60px !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { 
+        animation-duration: 0.01ms !important; 
+        animation-iteration-count: 1 !important; 
+        transition-duration: 0.01ms !important; 
+        scroll-behavior: auto !important; 
+      }
+    }
+  </style>
+</head>
+
+<body class="services-page">
+  <!-- WRAPPER PRINCIPAL (tout sauf footer) -->
+  <div class="page-wrapper">
+    <!-- 🚀 LOGO EN HAUT À DROITE UNIQUEMENT -->
+    <a href="index.html" class="top-right-logo">
+      <img src="Tilya logo PNG.png" alt="TILYA-CO">
+    </a>
+
+    <section class="services-hero">
+      <h1>Nos Services</h1>
+      <p>
+        Découvrez nos solutions complètes pour vos besoins en transport et carrosserie.
+        Sécurité, ponctualité et qualité industrielle : Tilya-co vous accompagne partout en Côte d'Ivoire.
+      </p>
+    </section>
+
+    <section class="services-cards-wrap">
+      <div class="services-cards">
+
+        <!-- Carte Transport avec ta photo -->
+        <div class="service-big-card">
+          <div class="service-big-img">
+            <img src="Gemini_Generated_Image_zafp9wzafp9wzafp.png" alt="Transport Tilya-co" />
+          </div>
+          <div class="service-big-content">
+            <h2>Transport</h2>
+            <p>
+              Transport d'élèves sécurisé et ponctuel, couverture des principales villes, et solutions adaptées aux écoles partenaires.
+            </p>
+            <div class="service-highlights">
+              <span class="chip">Sécurité</span>
+              <span class="chip">Ponctualité</span>
+              <span class="chip">Flotte moderne</span>
+            </div>
+            <a class="btn-secondary" href="transport.html">En savoir plus</a>
+          </div>
+        </div>
+
+        <!-- Carte Carrosserie -->
+        <div class="service-big-card">
+          <div class="service-big-img">
+            <img src="Gemini_Generated_Image_rlbpkorlbpkorlbp.png" alt="Carrosserie" />
+          </div>
+          <div class="service-big-content">
+            <h2>Carrosserie</h2>
+            <p>
+              Peinture, tôlerie, montage et finition aux standards internationaux. Réparations et rénovation esthétique pour un rendu neuf.
+            </p>
+            <div class="service-highlights">
+              <span class="chip">Peinture</span>
+              <span class="chip">Montage CKD/SKD</span>
+              <span class="chip">Redressage</span>
+            </div>
+            <a class="btn-secondary" href="carrosserie.html">En savoir plus</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <!-- FIN DU WRAPPER PRINCIPAL -->
+
+  <!-- FOOTER SIMPLIFIÉ ET ALIGNÉ HORIZONTALEMENT -->
+  <footer>
+    <div class="footer-wave">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+      </svg>
+    </div>
+    
+    <div class="footer-main">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <div class="footer-contact-section">
+            <h3 class="footer-contact-title">Contactez-nous</h3>
+            
+            <div class="footer-contact-list">
+              <!-- Localisation avec lien Google Maps -->
+              <div class="footer-contact-item" id="locationItem">
+                <div class="footer-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="footer-contact-content">
+                  <h4>Notre Localisation</h4>
+                  <p>Abidjan, Côte d'Ivoire<br>Yopougon/ Azito Sicogi APPT 906 01 BP 2543 Abidjan 01</p>
+                </div>
+              </div>
+              
+              <!-- Email avec lien mailto -->
+              <div class="footer-contact-item" id="emailItem">
+                <div class="footer-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="footer-contact-content">
+                  <h4>Email</h4>
+                  <p>tilya.corp@gmail.com<br>Réponse sous 24h</p>
+                </div>
+              </div>
+              
+              <!-- Téléphone avec lien tel - NUMÉRO MODIFIÉ -->
+              <div class="footer-contact-item" id="phoneItem">
+                <div class="footer-icon">
+                  <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="footer-contact-content">
+                  <h4>Téléphone</h4>
+                  <p>+225 05 76 20 25 56<br>Lun-Ven: 8h-18h</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <div class="footer-copyright">
+            &copy; 2026 Tilya-co. Tous droits réservés.
+          </div>
+          <div class="footer-social">
+            <!-- Facebook avec lien vers la page Facebook de l'entreprise -->
+            <a href="https://www.facebook.com/TilyaCorporation" target="_blank" class="social-icon" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <!-- Instagram (lien vide pour l'instant) -->
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <!-- LinkedIn (lien vide pour l'instant) -->
+            <a href="#" class="social-icon" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <!-- WhatsApp avec lien direct -->
+            <a href="#" class="social-icon" id="whatsappIcon" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Fonction pour ouvrir la localisation dans Google Maps
+    function openLocation() {
+      const address = "Yopougon Azito Sicogi APPT 906, Abidjan, Côte d'Ivoire";
+      const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+      window.open(googleMapsUrl, '_blank');
+    }
+    
+    // Fonction pour ouvrir l'email
+    function openEmail() {
+      const email = 'tilya.corp@gmail.com';
+      const subject = 'Demande d\'information - Tilya-co Services';
+      const body = 'Bonjour,\n\nJe souhaiterais obtenir des informations sur vos services.\n\nCordialement,';
+      
+      const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+    }
+    
+    // Fonction pour ouvrir le téléphone - NUMÉRO MODIFIÉ
+    function openPhone() {
+      const phoneNumber = '+2250576202556';
+      const telLink = `tel:${phoneNumber}`;
+      window.location.href = telLink;
+    }
+    
+    // Fonction pour ouvrir WhatsApp - NUMÉRO MODIFIÉ
+    function openWhatsApp() {
+      const phoneNumber = "+2250576202556";
+      const message = "Bonjour, je suis intéressé(e) par vos services.";
+      const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+    
+    // Animation des cartes au scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    // Initialisation quand le DOM est chargé
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animation des cartes
+      const cards = document.querySelectorAll('.service-big-card');
+      cards.forEach(card => {
+        observer.observe(card);
+      });
+      
+      // Ajout des écouteurs d'événements pour les contacts
+      const locationItem = document.getElementById('locationItem');
+      const emailItem = document.getElementById('emailItem');
+      const phoneItem = document.getElementById('phoneItem');
+      const whatsappIcon = document.getElementById('whatsappIcon');
+      
+      if (locationItem) {
+        locationItem.addEventListener('click', openLocation);
+      }
+      
+      if (emailItem) {
+        emailItem.addEventListener('click', openEmail);
+      }
+      
+      if (phoneItem) {
+        phoneItem.addEventListener('click', openPhone);
+      }
+      
+      if (whatsappIcon) {
+        whatsappIcon.addEventListener('click', function(e) {
+          e.preventDefault();
+          openWhatsApp();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
