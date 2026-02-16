@@ -30,7 +30,6 @@
       min-height: 100vh;
     }
 
-    /* Animated background avec particules */
     body::before {
       content: '';
       position: fixed;
@@ -51,7 +50,6 @@
       50% { opacity: 0.8; }
     }
 
-    /* Particules flottantes */
     .particles {
       position: fixed;
       top: 0;
@@ -86,13 +84,11 @@
       z-index: 1;
     }
 
-    /* WRAPPER PRINCIPAL (tout sauf footer) */
     .page-wrapper {
       flex: 1 0 auto;
       width: 100%;
     }
 
-    /* HEADER avec l'animation améliorée */
     header {
       position: sticky;
       top: 0;
@@ -195,7 +191,6 @@
       box-shadow: 0 10px 30px rgba(255, 140, 0, 0.5);
     }
 
-    /* HERO SECTION SPECTACULAIRE */
     .hero {
       padding: 120px 0 100px;
       position: relative;
@@ -277,7 +272,7 @@
 
     .hero-intro a:hover::after { width: 100%; }
 
-    /* GRILLE DE SERVICES MAGNIFIQUE */
+    /* GRILLE DE SERVICES */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -364,7 +359,32 @@
       font-size: 1rem;
     }
 
-    /* SECTIONS DÉTAILS PREMIUM */
+    /* Bouton pré-inscription dans les cartes */
+    .btn-preinscription-card {
+      display: block;
+      width: calc(100% - 40px);
+      margin: 0 20px 20px 20px;
+      padding: 12px 20px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary-orange), var(--light-orange));
+      color: var(--dark-navy);
+      font-weight: 800;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(255, 140, 0, 0.3);
+      z-index: 3;
+      position: relative;
+    }
+
+    .btn-preinscription-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(255, 140, 0, 0.5);
+    }
+
+    /* SECTIONS DÉTAILS */
     .details-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -428,6 +448,7 @@
 
     .detail-box ul {
       list-style: none;
+      margin-bottom: 20px;
     }
 
     .detail-box li {
@@ -455,12 +476,6 @@
       transform: translateX(10px) scale(1.2);
     }
 
-    /* Styles pour l'animation des écoles partenaires */
-    .school-item {
-      position: relative;
-    }
-
-    /* ANIMATIONS POUR LES VILLES */
     .city-schools {
       max-height: 0;
       overflow: hidden;
@@ -487,17 +502,9 @@
       transform: translateY(0);
     }
 
-    .city-school-item:nth-child(1) {
-      transition-delay: 0.1s;
-    }
-
-    .city-school-item:nth-child(2) {
-      transition-delay: 0.2s;
-    }
-
-    .city-school-item:nth-child(3) {
-      transition-delay: 0.3s;
-    }
+    .city-school-item:nth-child(1) { transition-delay: 0.1s; }
+    .city-school-item:nth-child(2) { transition-delay: 0.2s; }
+    .city-school-item:nth-child(3) { transition-delay: 0.3s; }
 
     .city-item {
       cursor: pointer;
@@ -550,13 +557,8 @@
       transform: translateY(0);
     }
 
-    .sub-school-item:nth-child(1) {
-      transition-delay: 0.1s;
-    }
-
-    .sub-school-item:nth-child(2) {
-      transition-delay: 0.2s;
-    }
+    .sub-school-item:nth-child(1) { transition-delay: 0.1s; }
+    .sub-school-item:nth-child(2) { transition-delay: 0.2s; }
 
     .methodist-school {
       position: relative;
@@ -577,7 +579,6 @@
       animation: bounceRight 0.6s ease infinite alternate;
     }
 
-    /* Ajout d'une animation d'attention pour l'école méthodiste */
     @keyframes pulseAttention {
       0%, 100% { 
         color: rgba(255, 255, 255, 0.9); 
@@ -589,7 +590,7 @@
       }
     }
 
-    /* CTA LOCATION SPECTACULAIRE */
+    /* CTA LOCATION */
     .location-cta {
       margin: 100px auto;
       padding: 70px 60px;
@@ -679,7 +680,154 @@
       box-shadow: 0 30px 70px rgba(255, 140, 0, 0.6);
     }
 
-    /* FORMULAIRE MODAL - AMÉLIORÉ AVEC NOUVEAUX CHAMPS */
+    /* MODALES PRÉ-INSCRIPTION */
+    .preinscription-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(30px);
+      z-index: 1000;
+      padding: 80px 20px;
+      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .preinscription-modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .preinscription-form-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(30px);
+      border: 2px solid rgba(255, 140, 0, 0.3);
+      color: #fff;
+      max-width: 500px;
+      width: 90%;
+      margin: 0 auto;
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      position: relative;
+      transform: scale(0.8);
+      transition: transform 0.5s ease;
+    }
+
+    .preinscription-modal.show .preinscription-form-container {
+      transform: scale(1);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 140, 0, 0.2);
+      border: 1px solid var(--primary-orange);
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: var(--primary-orange);
+      transform: rotate(90deg);
+    }
+
+    .preinscription-form-container h3 {
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, var(--primary-orange), #ffa500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .preinscription-form-container .form-group {
+      margin-bottom: 25px;
+    }
+
+    .preinscription-form-container label {
+      display: block;
+      margin-bottom: 10px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+    }
+
+    .preinscription-form-container input,
+    .preinscription-form-container select {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .preinscription-form-container input:focus,
+    .preinscription-form-container select:focus {
+      outline: none;
+      border-color: var(--primary-orange);
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .preinscription-form-container select option {
+      background: var(--dark-navy);
+      color: #fff;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 18px;
+      margin-top: 10px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary-orange), #ffa500);
+      color: #0a0e1a;
+      font-size: 1.1rem;
+      font-weight: 900;
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .btn-submit:hover::before { left: 100%; }
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(255, 140, 0, 0.5);
+    }
+
+    /* MODALE LOCATION (version complète) */
     .rental-section-bottom {
       position: fixed;
       top: 0;
@@ -801,7 +949,6 @@
       color-scheme: dark;
     }
 
-    /* Style pour les champs de date et heure */
     .form-group input[type="date"]::-webkit-calendar-picker-indicator,
     .form-group input[type="time"]::-webkit-calendar-picker-indicator {
       filter: invert(1);
@@ -841,16 +988,13 @@
       transition: left 0.6s;
     }
 
-    .btn-submit:hover::before {
-      left: 100%;
-    }
-
+    .btn-submit:hover::before { left: 100%; }
     .btn-submit:hover {
       transform: translateY(-3px);
       box-shadow: 0 20px 50px rgba(255, 140, 0, 0.5);
     }
 
-    /* ===== FOOTER SIMPLIFIÉ ET ALIGNÉ HORIZONTALEMENT ===== */
+    /* FOOTER */
     footer {
       flex-shrink: 0;
       width: 100%;
@@ -894,7 +1038,6 @@
       margin: 0 auto;
     }
 
-    /* Suppression de la grille à deux colonnes */
     .footer-grid {
       display: flex;
       flex-direction: column;
@@ -903,7 +1046,6 @@
       margin-bottom: 40px;
     }
 
-    /* Section contact horizontal */
     .footer-contact-section {
       width: 100%;
       margin-bottom: 40px;
@@ -1036,118 +1178,39 @@
       transform: translateY(-3px);
     }
 
-    /* RESPONSIVE */
+    /* Responsive */
     @media (max-width: 1024px) {
-      .hero-intro h1 {
-        font-size: 3.5rem;
-      }
-      
-      .services-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-      }
-      
-      .footer-contact-list {
-        gap: 20px;
-      }
-      
-      .footer-contact-item {
-        min-width: 250px;
-      }
+      .hero-intro h1 { font-size: 3.5rem; }
+      .services-grid { grid-template-columns: 1fr; max-width: 500px; }
+      .footer-contact-list { gap: 20px; }
+      .footer-contact-item { min-width: 250px; }
     }
 
     @media (max-width: 768px) {
-      nav {
-        display: none;
-      }
-      
-      .hero-intro h1 {
-        font-size: 2.5rem;
-      }
-      
-      .details-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .detail-box {
-        padding: 30px 25px;
-      }
-      
-      .location-cta {
-        padding: 40px 30px;
-      }
-      
-      .location-cta strong {
-        font-size: 2rem;
-      }
-      
-      .footer-contact-list {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-      }
-      
-      .footer-contact-item {
-        width: 100%;
-        max-width: 350px;
-      }
-      
-      .footer-main {
-        padding: 50px 0 25px;
-      }
-      
-      .footer-contact-title {
-        font-size: 1.8rem;
-        margin-bottom: 30px;
-      }
-      
-      .form-row {
-        flex-direction: column;
-      }
-      
-      .rental-form-container {
-        padding: 40px 30px;
-      }
+      nav { display: none; }
+      .hero-intro h1 { font-size: 2.5rem; }
+      .details-grid { grid-template-columns: 1fr; }
+      .detail-box { padding: 30px 25px; }
+      .location-cta { padding: 40px 30px; }
+      .location-cta strong { font-size: 2rem; }
+      .footer-contact-list { flex-direction: column; align-items: center; gap: 20px; }
+      .footer-contact-item { width: 100%; max-width: 350px; }
+      .footer-main { padding: 50px 0 25px; }
+      .footer-contact-title { font-size: 1.8rem; margin-bottom: 30px; }
+      .form-row { flex-direction: column; }
+      .rental-form-container { padding: 40px 30px; }
     }
 
     @media (max-width: 480px) {
-      .hero-intro h1 {
-        font-size: 2rem;
-      }
-      
-      .hero-intro p {
-        font-size: 1.1rem;
-      }
-      
-      .service-card img {
-        height: 220px;
-      }
-      
-      .footer-contact-item {
-        padding: 20px 15px;
-      }
-      
-      .footer-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.3rem;
-      }
-      
-      .location-cta strong {
-        font-size: 1.6rem;
-      }
-      
-      .location-cta span {
-        font-size: 1.1rem;
-      }
-      
-      .rental-form-container {
-        padding: 30px 20px;
-      }
-      
-      .rental-form-container h3 {
-        font-size: 1.6rem;
-      }
+      .hero-intro h1 { font-size: 2rem; }
+      .hero-intro p { font-size: 1.1rem; }
+      .service-card img { height: 220px; }
+      .footer-contact-item { padding: 20px 15px; }
+      .footer-icon { width: 50px; height: 50px; font-size: 1.3rem; }
+      .location-cta strong { font-size: 1.6rem; }
+      .location-cta span { font-size: 1.1rem; }
+      .rental-form-container { padding: 30px 20px; }
+      .rental-form-container h3 { font-size: 1.6rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1161,12 +1224,9 @@
   </style>
 </head>
 <body>
-  <!-- WRAPPER PRINCIPAL (tout sauf footer) -->
   <div class="page-wrapper">
-    <!-- Particules flottantes -->
     <div class="particles" id="particles"></div>
 
-    <!-- HEADER avec l'animation améliorée -->
     <header>
       <div class="container header-inner">
         <a class="brand" href="index.html">
@@ -1181,7 +1241,6 @@
       </div>
     </header>
 
-    <!-- HERO -->
     <main class="hero">
       <div class="container">
         <div class="hero-intro">
@@ -1197,42 +1256,52 @@
           </p>
         </div>
 
-        <!-- SERVICES -->
+        <!-- GRILLE DE SERVICES AVEC BOUTONS PRÉ-INSCRIPTION -->
         <div class="services-grid">
+          <!-- Transport Scolaire -->
           <div class="service-card">
-            <!-- PHOTO MODIFIÉE (TRANSPORT SCOLAIRE) -->
             <img src="Gemini_Generated_Image_xqekgyxqekgyxqek.png" alt="Transport Scolaire">
             <div class="service-info">
-              <strong> Transport Scolaire</strong>
+              <strong>Transport Scolaire</strong>
               <span>Sécurité maximale pour vos enfants</span>
             </div>
           </div>
+
+          <!-- Abidjan avec bouton pré-inscription -->
           <div class="service-card">
-            <!-- PHOTO MODIFIÉE (ABIDJAN) -->
-            <img src="Gemini_Generated_Image_fauubefauubefauu.png" alt="École Abidjan">
+            <img src="Gemini_Generated_Image_fauubefauubefauu.png" alt="Abidjan">
             <div class="service-info">
-              <strong> Abidjan</strong>
+              <strong>Abidjan</strong>
               <span>Desserte de toutes les communes</span>
             </div>
+            <button class="btn-preinscription-card" onclick="openPreinscription('abidjan')">
+               Pré-inscription Abidjan
+            </button>
           </div>
+
+          <!-- Yamoussoukro avec bouton pré-inscription -->
           <div class="service-card">
-            <!-- PHOTO MODIFIÉE (YAMOUSSOUKRO) -->
             <img src="Gemini_Generated_Image_aiobj4aiobj4aiob.png" alt="Yamoussoukro">
             <div class="service-info">
-              <strong> Yamoussoukro</strong>
+              <strong>Yamoussoukro</strong>
               <span>Couverture complète de la zone</span>
             </div>
+            <button class="btn-preinscription-card" onclick="openPreinscription('yamoussoukro')">
+               Pré-inscription Yamoussoukro
+            </button>
           </div>
+
+          <!-- Flotte Moderne -->
           <div class="service-card">
-            <img src="Gemini_Generated_Image_3wwbi3wwbi3wwbi3.png" alt="Flotte Récente">
+            <img src="Gemini_Generated_Image_3wwbi3wwbi3wwbi3.png" alt="Flotte Moderne">
             <div class="service-info">
-              <strong> Flotte Moderne</strong>
+              <strong>Flotte Moderne</strong>
               <span>Véhicules climatisés et confortables</span>
             </div>
           </div>
         </div>
 
-        <!-- DÉTAILS -->
+        <!-- DÉTAILS (villes et écoles) -->
         <div class="details-grid">
           <div class="detail-box" id="cities-box">
             <h3><span></span> Nos Villes</h3>
@@ -1263,7 +1332,7 @@
       </div>
     </main>
 
-    <!-- FORMULAIRE LOCATION - AVEC NOUVEAUX CHAMPS -->
+    <!-- FORMULAIRE LOCATION (version complète avec tous les champs) -->
     <section class="rental-section-bottom" id="rental-section">
       <div class="rental-form-container">
         <button class="close-btn" onclick="closeRental()">✕</button>
@@ -1290,11 +1359,11 @@
           <!-- Ligne 3 : Date départ & Date retour -->
           <div class="form-row">
             <div class="form-group">
-              <label for="rentalStartDate"> Date de départ</label>
+              <label for="rentalStartDate">📅 Date de départ</label>
               <input type="date" id="rentalStartDate" name="startDate" required>
             </div>
             <div class="form-group">
-              <label for="rentalEndDate"> Date de retour</label>
+              <label for="rentalEndDate">📅 Date de retour</label>
               <input type="date" id="rentalEndDate" name="endDate" required>
             </div>
           </div>
@@ -1302,7 +1371,7 @@
           <!-- Ligne 4 : Heure départ & Point de départ -->
           <div class="form-row">
             <div class="form-group">
-              <label for="rentalStartTime"> Heure de départ</label>
+              <label for="rentalStartTime">⏰ Heure de départ</label>
               <input type="time" id="rentalStartTime" name="startTime" required>
             </div>
             <div class="form-group">
@@ -1324,10 +1393,60 @@
         </form>
       </div>
     </section>
-  </div>
-  <!-- FIN DU WRAPPER PRINCIPAL -->
 
-  <!-- FOOTER SIMPLIFIÉ ET ALIGNÉ HORIZONTALEMENT -->
+    <!-- MODALE PRÉ-INSCRIPTION ABIDJAN -->
+    <div id="preinscriptionAbidjan" class="preinscription-modal">
+      <div class="preinscription-form-container">
+        <button class="close-btn" onclick="closePreinscription('abidjan')">✕</button>
+        <h3> Pré-inscription Abidjan</h3>
+        <form id="preinscriptionAbidjanForm">
+          <div class="form-group">
+            <label for="abidjanName">Nom & Prénoms</label>
+            <input type="text" id="abidjanName" name="name" placeholder="Votre nom complet" required>
+          </div>
+          <div class="form-group">
+            <label for="abidjanEcole">École partenaire</label>
+            <select id="abidjanEcole" name="ecole" required>
+              <option value="">Choisissez votre école</option>
+              <option value="CSM Plateau">CSM Plateau</option>
+              <option value="CSM Cocody">CSM Cocody</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fab fa-whatsapp"></i> Envoyer la pré-inscription
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODALE PRÉ-INSCRIPTION YAMOUSSOUKRO -->
+    <div id="preinscriptionYamoussoukro" class="preinscription-modal">
+      <div class="preinscription-form-container">
+        <button class="close-btn" onclick="closePreinscription('yamoussoukro')">✕</button>
+        <h3> Pré-inscription Yamoussoukro</h3>
+        <form id="preinscriptionYamoussoukroForm">
+          <div class="form-group">
+            <label for="yamoussoukroName">Nom & Prénoms</label>
+            <input type="text" id="yamoussoukroName" name="name" placeholder="Votre nom complet" required>
+          </div>
+          <div class="form-group">
+            <label for="yamoussoukroEcole">École partenaire</label>
+            <select id="yamoussoukroEcole" name="ecole" required>
+              <option value="">Choisissez votre école</option>
+              <option value="École catholique Yamoussoukro">École catholique Yamoussoukro</option>
+              <option value="Groupe Scolaire Sinzibo">Groupe Scolaire Sinzibo</option>
+              <option value="Lycée Mamie Adjoua">Lycée Mamie Adjoua</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fab fa-whatsapp"></i> Envoyer la pré-inscription
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
     <div class="footer-wave">
       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -1340,35 +1459,23 @@
         <div class="footer-grid">
           <div class="footer-contact-section">
             <h3 class="footer-contact-title">Contactez-nous</h3>
-            
             <div class="footer-contact-list">
-              <!-- Localisation avec lien Google Maps -->
               <div class="footer-contact-item" id="locationItem">
-                <div class="footer-icon">
-                  <i class="fas fa-map-marker-alt"></i>
-                </div>
+                <div class="footer-icon"><i class="fas fa-map-marker-alt"></i></div>
                 <div class="footer-contact-content">
                   <h4>Notre Localisation</h4>
                   <p>Abidjan, Côte d'Ivoire<br>Yopougon/ Azito Sicogi APPT 906 01 BP 2543 Abidjan 01</p>
                 </div>
               </div>
-              
-              <!-- Email avec lien mailto -->
               <div class="footer-contact-item" id="emailItem">
-                <div class="footer-icon">
-                  <i class="fas fa-envelope"></i>
-                </div>
+                <div class="footer-icon"><i class="fas fa-envelope"></i></div>
                 <div class="footer-contact-content">
                   <h4>Email</h4>
-                  <p>tilya.corp@gmail.com<br>Réponse sous 24h</p>
+                  <p>tilya.corp@gmail.com<br>tilya-co@outlook.fr<br>Réponse sous 24h</p>
                 </div>
               </div>
-              
-              <!-- Téléphone avec lien tel - NUMÉRO MODIFIÉ -->
               <div class="footer-contact-item" id="phoneItem">
-                <div class="footer-icon">
-                  <i class="fas fa-phone-alt"></i>
-                </div>
+                <div class="footer-icon"><i class="fas fa-phone-alt"></i></div>
                 <div class="footer-contact-content">
                   <h4>Téléphone</h4>
                   <p>+225 07 69 13 13 89<br>Lun-Ven: 8h-18h</p>
@@ -1377,28 +1484,13 @@
             </div>
           </div>
         </div>
-        
         <div class="footer-bottom">
-          <div class="footer-copyright">
-            &copy; 2026 Tilya-co. Tous droits réservés.
-          </div>
+          <div class="footer-copyright">&copy; 2026 Tilya-co. Tous droits réservés.</div>
           <div class="footer-social">
-            <!-- Facebook avec lien vers la page Facebook de l'entreprise -->
-            <a href="https://www.facebook.com/TilyaCorporation" target="_blank" class="social-icon" aria-label="Facebook">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <!-- Instagram (lien vide pour l'instant) -->
-            <a href="#" class="social-icon" aria-label="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <!-- LinkedIn (lien vide pour l'instant) -->
-            <a href="#" class="social-icon" aria-label="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <!-- WhatsApp avec lien direct -->
-            <a href="#" class="social-icon" id="whatsappIcon" aria-label="WhatsApp">
-              <i class="fab fa-whatsapp"></i>
-            </a>
+            <a href="https://www.facebook.com/TilyaCorporation" target="_blank" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon" id="whatsappIcon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>
       </div>
@@ -1406,10 +1498,12 @@
   </footer>
 
   <script>
-    // Numéro WhatsApp du footer
-    const whatsappNumber = "+2250769131389";
-    
-    // Particules flottantes
+    // Numéros WhatsApp
+    const whatsappNumberLocation = "+2250769131389";     // pour location
+    const whatsappNumberAbidjan = "+2250769131389";     // pour Abidjan (même que location)
+    const whatsappNumberYamoussoukro = "+2250707027331"; // pour Yamoussoukro
+
+    // Particules
     function createParticles() {
       const particlesContainer = document.getElementById('particles');
       for (let i = 0; i < 50; i++) {
@@ -1423,74 +1517,143 @@
       }
     }
 
-    // Formulaire modal
+    // Fonctions pour les modales de pré-inscription
+    function openPreinscription(ville) {
+      const modal = document.getElementById(`preinscription${ville.charAt(0).toUpperCase() + ville.slice(1)}`);
+      if (modal) {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closePreinscription(ville) {
+      const modal = document.getElementById(`preinscription${ville.charAt(0).toUpperCase() + ville.slice(1)}`);
+      if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Fermeture en cliquant à l'extérieur
+    document.querySelectorAll('.preinscription-modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.remove('show');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    });
+
+    // Gestionnaire d'envoi pour Abidjan
+    document.getElementById('preinscriptionAbidjanForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('abidjanName').value;
+      const ecole = document.getElementById('abidjanEcole').value;
+      const message = `📝 *NOUVELLE PRÉ-INSCRIPTION ABIDJAN* - Tilya-co Transport%0A%0A` +
+                      `👤 *Nom*: ${name}%0A` +
+                      `🏫 *École choisie*: ${ecole}%0A%0A` +
+                      `📅 *Date*: ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}`;
+      const url = `https://wa.me/${whatsappNumberAbidjan.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+      alert('✅ Pré-inscription envoyée via WhatsApp !');
+      closePreinscription('abidjan');
+      this.reset();
+    });
+
+    // Gestionnaire d'envoi pour Yamoussoukro
+    document.getElementById('preinscriptionYamoussoukroForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('yamoussoukroName').value;
+      const ecole = document.getElementById('yamoussoukroEcole').value;
+      const message = `📝 *NOUVELLE PRÉ-INSCRIPTION YAMOUSSOUKRO* - Tilya-co Transport%0A%0A` +
+                      `👤 *Nom*: ${name}%0A` +
+                      `🏫 *École choisie*: ${ecole}%0A%0A` +
+                      `📅 *Date*: ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}`;
+      const url = `https://wa.me/${whatsappNumberYamoussoukro.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+      alert('✅ Pré-inscription envoyée via WhatsApp !');
+      closePreinscription('yamoussoukro');
+      this.reset();
+    });
+
+    // Fonctions location
     function toggleRental() {
       const section = document.getElementById('rental-section');
       section.classList.add('show');
       document.body.style.overflow = 'hidden';
-      
-      // Définir la date minimale à aujourd'hui
       const today = new Date().toISOString().split('T')[0];
-      document.getElementById('rentalStartDate').min = today;
-      document.getElementById('rentalEndDate').min = today;
+      if (document.getElementById('rentalStartDate')) {
+        document.getElementById('rentalStartDate').min = today;
+      }
+      if (document.getElementById('rentalEndDate')) {
+        document.getElementById('rentalEndDate').min = today;
+      }
     }
 
     function closeRental() {
-      const section = document.getElementById('rental-section');
-      section.classList.remove('show');
+      document.getElementById('rental-section').classList.remove('show');
       document.body.style.overflow = 'auto';
     }
 
-    // Fermer modal en cliquant dehors
-    document.getElementById('rental-section').addEventListener('click', function(e) {
+    document.getElementById('rental-section')?.addEventListener('click', function(e) {
       if (e.target === this) closeRental();
     });
 
-    // Gestion de l'animation pour les villes et écoles
+    function initRentalForm() {
+      const rentalForm = document.getElementById('rentalForm');
+      if (rentalForm) {
+        rentalForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const name = document.getElementById('rentalName').value;
+          const phone = document.getElementById('rentalPhone').value;
+          const email = document.getElementById('rentalEmail').value;
+          const startDate = document.getElementById('rentalStartDate').value;
+          const endDate = document.getElementById('rentalEndDate').value;
+          const startTime = document.getElementById('rentalStartTime').value;
+          const startPoint = document.getElementById('rentalStartPoint').value;
+          const destination = document.getElementById('rentalDestination').value;
+
+          const formatDateFr = (d) => d ? d.split('-').reverse().join('/') : 'Non spécifié';
+          const message = `🚗 *NOUVELLE DEMANDE DE LOCATION* - Tilya-co Transport%0A%0A` +
+            `👤 *Nom*: ${name}%0A📱 *Téléphone*: ${phone}%0A📧 *Email*: ${email}%0A%0A` +
+            `📅 *Période*: du ${formatDateFr(startDate)} au ${formatDateFr(endDate)} à ${startTime}%0A` +
+            `📍 *Départ*: ${startPoint}%0A🎯 *Destination*: ${destination}%0A%0A` +
+            `⏱️ *Demande*: ${new Date().toLocaleDateString('fr-FR')} ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}`;
+          const url = `https://wa.me/${whatsappNumberLocation.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+          window.open(url, '_blank');
+          alert('✅ Demande de location envoyée !');
+          closeRental();
+          this.reset();
+        });
+      }
+    }
+
+    // Animation des villes et écoles
     document.addEventListener('DOMContentLoaded', function() {
       const citiesBox = document.getElementById('cities-box');
       const schoolsBox = document.getElementById('schools-box');
       const methodistSchool = document.querySelector('.methodist-school');
-      
-      // Créer les sous-écoles pour l'école méthodiste
+
+      // Création des sous-écoles méthodistes
       const methodistSubSchools = document.createElement('div');
       methodistSubSchools.className = 'sub-schools';
-      methodistSubSchools.innerHTML = `
-        <div class="sub-school-item">CSM Plateau</div>
-        <div class="sub-school-item">CSM Cocody</div>
-      `;
-      
-      // Insérer après l'école méthodiste
+      methodistSubSchools.innerHTML = `<div class="sub-school-item">CSM Plateau</div><div class="sub-school-item">CSM Cocody</div>`;
       methodistSchool.parentNode.insertBefore(methodistSubSchools, methodistSchool.nextSibling);
-      
-      // Créer les écoles par ville
+
+      // Écoles par ville
       const abidjanItem = document.querySelector('[data-city="abidjan"]');
       const yamoussoukroItem = document.querySelector('[data-city="yamoussoukro"]');
-      
-      // Écoles d'Abidjan
       const abidjanSchools = document.createElement('div');
       abidjanSchools.className = 'city-schools';
-      abidjanSchools.innerHTML = `
-        <div class="city-school-item">CSM Plateau</div>
-        <div class="city-school-item">CSM Cocody</div>
-      `;
-      
-      // Écoles de Yamoussoukro
+      abidjanSchools.innerHTML = `<div class="city-school-item">CSM Plateau</div><div class="city-school-item">CSM Cocody</div>`;
       const yamoussoukroSchools = document.createElement('div');
       yamoussoukroSchools.className = 'city-schools';
-      yamoussoukroSchools.innerHTML = `
-        <div class="city-school-item">École catholique Yamoussoukro</div>
-        <div class="city-school-item">Groupe Scolaire Sinzibo</div>
-        <div class="city-school-item">Lycée Mamie Adjoua</div>
-      `;
-      
-      // Insérer les écoles après chaque ville
+      yamoussoukroSchools.innerHTML = `<div class="city-school-item">École catholique Yamoussoukro</div><div class="city-school-item">Groupe Scolaire Sinzibo</div><div class="city-school-item">Lycée Mamie Adjoua</div>`;
       abidjanItem.parentNode.insertBefore(abidjanSchools, abidjanItem.nextSibling);
       yamoussoukroItem.parentNode.insertBefore(yamoussoukroSchools, yamoussoukroItem.nextSibling);
-      
-      // Gestion du survol pour l'école méthodiste
+
+      // Gestion survol méthodiste
       let methodistHovering = false;
-      
       methodistSchool.addEventListener('mouseenter', function() {
         methodistHovering = true;
         schoolsBox.classList.add('methodist-hover');
@@ -1498,7 +1661,6 @@
         methodistSchool.style.color = 'var(--primary-orange)';
         methodistSchool.style.fontWeight = 'bold';
       });
-      
       methodistSchool.addEventListener('mouseleave', function() {
         setTimeout(() => {
           if (!methodistHovering && !methodistSubSchools.matches(':hover')) {
@@ -1509,12 +1671,7 @@
           }
         }, 100);
       });
-      
-      methodistSubSchools.addEventListener('mouseenter', function() {
-        methodistHovering = true;
-        schoolsBox.classList.add('methodist-hover');
-      });
-      
+      methodistSubSchools.addEventListener('mouseenter', () => methodistHovering = true);
       methodistSubSchools.addEventListener('mouseleave', function() {
         methodistHovering = false;
         setTimeout(() => {
@@ -1526,17 +1683,11 @@
           }
         }, 100);
       });
-      
-      // Gestion du survol pour les villes
-      let cityHovering = {
-        abidjan: false,
-        yamoussoukro: false
-      };
-      
-      // Fonction pour gérer le survol d'une ville
+
+      // Gestion survol villes
+      let cityHovering = { abidjan: false, yamoussoukro: false };
       function setupCityHover(cityElement, cityName) {
         const citySchools = cityElement.nextElementSibling;
-        
         cityElement.addEventListener('mouseenter', function() {
           cityHovering[cityName] = true;
           citiesBox.classList.add('city-hover');
@@ -1544,7 +1695,6 @@
           cityElement.style.color = 'var(--primary-orange)';
           cityElement.style.fontWeight = 'bold';
         });
-        
         cityElement.addEventListener('mouseleave', function() {
           setTimeout(() => {
             if (!cityHovering[cityName] && !citySchools.matches(':hover')) {
@@ -1555,12 +1705,7 @@
             }
           }, 100);
         });
-        
-        citySchools.addEventListener('mouseenter', function() {
-          cityHovering[cityName] = true;
-          citiesBox.classList.add('city-hover');
-        });
-        
+        citySchools.addEventListener('mouseenter', () => cityHovering[cityName] = true);
         citySchools.addEventListener('mouseleave', function() {
           cityHovering[cityName] = false;
           setTimeout(() => {
@@ -1573,154 +1718,41 @@
           }, 100);
         });
       }
-      
-      // Configurer les survols pour chaque ville
       setupCityHover(abidjanItem, 'abidjan');
       setupCityHover(yamoussoukroItem, 'yamoussoukro');
-      
-      // Animation au chargement de la page pour attirer l'attention
+
+      // Animation
       setTimeout(() => {
         methodistSchool.style.animation = 'pulseAttention 2s ease-in-out';
         methodistSchool.style.animationDelay = '1s';
       }, 1000);
-      
-      // Initialiser les fonctions de contact du footer
+
+      // Initialisation
       initFooterContacts();
-      
-      // Gestion du formulaire de location avec nouveaux champs
       initRentalForm();
     });
 
-    // Fonction pour ouvrir la localisation dans Google Maps
+    // Footer contacts
     function openLocation() {
       const address = "Yopougon Azito Sicogi APPT 906, Abidjan, Côte d'Ivoire";
-      const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-      window.open(googleMapsUrl, '_blank');
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
     }
-    
-    // Fonction pour ouvrir l'email
     function openEmail() {
-      const email = 'tilya.corp@gmail.com';
-      const subject = 'Demande d\'information - Tilya-co Transport';
-      const body = 'Bonjour,\n\nJe souhaiterais obtenir des informations sur vos services de transport scolaire et location.\n\nCordialement,';
-      
-      const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoLink;
+      window.location.href = 'mailto:tilya.corp@gmail.com?subject=Demande d\'information - Tilya-co Transport&body=Bonjour,%0A%0AJe souhaiterais obtenir des informations sur vos services de transport scolaire et location.%0A%0ACordialement,';
     }
-    
-    // Fonction pour ouvrir le téléphone
     function openPhone() {
-      const phoneNumber = '+2250769131389';
-      const telLink = `tel:${phoneNumber}`;
-      window.location.href = telLink;
+      window.location.href = 'tel:+2250769131389';
     }
-    
-    // Fonction pour ouvrir WhatsApp avec message personnalisé
     function openWhatsApp(message = '') {
-      const phoneNumber = whatsappNumber;
-      const defaultMessage = "Bonjour, je suis intéressé(e) par vos services de transport scolaire.";
-      const finalMessage = message || defaultMessage;
-      const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(finalMessage)}`;
-      window.open(whatsappUrl, '_blank');
+      const defaultMsg = "Bonjour, je suis intéressé(e) par vos services de transport scolaire.";
+      const finalMsg = message || defaultMsg;
+      window.open(`https://wa.me/${whatsappNumberLocation.replace(/\D/g, '')}?text=${encodeURIComponent(finalMsg)}`, '_blank');
     }
-    
-    // Gestion du formulaire de location - AVEC NOUVEAUX CHAMPS
-    function initRentalForm() {
-      const rentalForm = document.getElementById('rentalForm');
-      
-      if (rentalForm) {
-        rentalForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          
-          // Récupération des données du formulaire
-          const name = document.getElementById('rentalName').value;
-          const phone = document.getElementById('rentalPhone').value;
-          const email = document.getElementById('rentalEmail').value;
-          const startDate = document.getElementById('rentalStartDate').value;
-          const endDate = document.getElementById('rentalEndDate').value;
-          const startTime = document.getElementById('rentalStartTime').value;
-          const startPoint = document.getElementById('rentalStartPoint').value;
-          const destination = document.getElementById('rentalDestination').value;
-          
-          // Formatage des dates en français
-          const formatDateFr = (dateStr) => {
-            if (!dateStr) return 'Non spécifié';
-            const [year, month, day] = dateStr.split('-');
-            return `${day}/${month}/${year}`;
-          };
-          
-          // Formatage de l'heure en français
-          const formatTimeFr = (timeStr) => {
-            if (!timeStr) return 'Non spécifié';
-            return timeStr;
-          };
-          
-          // Création du message WhatsApp enrichi avec tous les détails
-          const whatsappMessage = 
-            `🚗 *NOUVELLE DEMANDE DE LOCATION* - Tilya-co Transport%0A%0A` +
-            `👤 *CLIENT*%0A` +
-            `━━━━━━━━━━━━━━%0A` +
-            `▪️ *Nom*: ${name}%0A` +
-            `▪️ *Téléphone*: ${phone}%0A` +
-            `▪️ *Email*: ${email}%0A%0A` +
-            
-            `📅 *PÉRIODE DE LOCATION*%0A` +
-            `━━━━━━━━━━━━━━%0A` +
-            `▪️ *Date de départ*: ${formatDateFr(startDate)}%0A` +
-            `▪️ *Date de retour*: ${formatDateFr(endDate)}%0A` +
-            `▪️ *Heure de départ*: ${formatTimeFr(startTime)}%0A%0A` +
-            
-            `📍 *ITINÉRAIRE*%0A` +
-            `━━━━━━━━━━━━━━%0A` +
-            `▪️ *Point de départ*: ${startPoint}%0A` +
-            `▪️ *Destination*: ${destination}%0A%0A` +
-            
-            `📊 *RÉCAPITULATIF*%0A` +
-            `━━━━━━━━━━━━━━%0A` +
-            `▪️ Durée de location: ${startDate && endDate ? `Du ${formatDateFr(startDate)} au ${formatDateFr(endDate)}` : 'Non spécifiée'}%0A%0A` +
-            
-            `⏱️ *Demande envoyée le*: ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'})}%0A` +
-            `━━━━━━━━━━━━━━%0A` +
-            `Merci de traiter cette demande dans les plus brefs délais.`;
-          
-          // Ouvrir WhatsApp avec le message enrichi
-          openWhatsApp(whatsappMessage);
-          
-          // Afficher un message de confirmation
-          alert('✅ Votre demande de location a été préparée !\n\nVous allez être redirigé vers WhatsApp pour finaliser l\'envoi.');
-          closeRental();
-          
-          // Réinitialiser le formulaire
-          this.reset();
-        });
-      }
-    }
-    
-    // Initialisation des contacts du footer
     function initFooterContacts() {
-      const locationItem = document.getElementById('locationItem');
-      const emailItem = document.getElementById('emailItem');
-      const phoneItem = document.getElementById('phoneItem');
-      const whatsappIcon = document.getElementById('whatsappIcon');
-      
-      if (locationItem) {
-        locationItem.addEventListener('click', openLocation);
-      }
-      
-      if (emailItem) {
-        emailItem.addEventListener('click', openEmail);
-      }
-      
-      if (phoneItem) {
-        phoneItem.addEventListener('click', openPhone);
-      }
-      
-      if (whatsappIcon) {
-        whatsappIcon.addEventListener('click', function(e) {
-          e.preventDefault();
-          openWhatsApp();
-        });
-      }
+      document.getElementById('locationItem')?.addEventListener('click', openLocation);
+      document.getElementById('emailItem')?.addEventListener('click', openEmail);
+      document.getElementById('phoneItem')?.addEventListener('click', openPhone);
+      document.getElementById('whatsappIcon')?.addEventListener('click', (e) => { e.preventDefault(); openWhatsApp(); });
     }
 
     // Smooth scroll
@@ -1728,13 +1760,10 @@
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    // Initialiser particules
     createParticles();
   </script>
 </body>
