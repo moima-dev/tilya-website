@@ -1503,19 +1503,28 @@
       <div class="c-modal-title" id="devisTitle">Demande de devis</div>
 
       <form class="c-form" id="devisForm">
-        <label for="name">Nom & Prénoms</label>
-        <input type="text" id="name" name="name" required>
+        <!-- Nouvelle ligne : Nom et Prénom séparés -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+          </div>
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+          </div>
+        </div>
 
-        <label for="phone">Téléphone</label>
-        <input type="tel" id="phone" name="phone" required>
+        <label for="phone">Téléphone (WhatsApp)</label>
+        <input type="tel" id="phone" name="phone" placeholder="+225 XX XX XX XX" required>
 
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" placeholder="votre@email.com" required>
 
         <label for="service">Prestation</label>
         <select id="serviceSelect" name="service" required>
           <option value="">Choisir…</option>
-          <option value="Bus (15-65 places)">Bus (15-65 places)</option>
+          <option value="Bus (15-65 places)">Bus 15-65 places (climatisés ou non)</option>
           <option value="Caisse frigorifique / Chambre froide">Caisse frigorifique / Chambre froide</option>
           <option value="Fourgon métallique">Fourgon métallique</option>
           <option value="Fourgon polyester">Fourgon polyester</option>
@@ -1523,7 +1532,7 @@
         </select>
 
         <label for="message">Message</label>
-        <textarea id="message" name="message" rows="3" placeholder="Décris ton besoin (zone, dégâts, délai…)" required></textarea>
+        <textarea id="message" name="message" rows="3" placeholder="Décrivez votre besoin (Donnez le maximum de détails)" required></textarea>
         
         <div class="c-submit-container">
           <button class="c-submit" type="submit">Envoyer le devis</button>
@@ -1612,6 +1621,16 @@
         }
       }, 3000);
     }
+
+    // Fonction AJAX générique
+    async function envoyerFormulaire(url, data) {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      return response.json();
+    }
     
     // ===== FONCTIONS POUR LES MODALES =====
     function openDevis(serviceName = '') {
@@ -1632,7 +1651,7 @@
       }
       
       setTimeout(() => {
-        document.getElementById('name').focus();
+        document.getElementById('nom').focus();
       }, 100);
     }
     
@@ -1657,15 +1676,7 @@
     
     // ===== FONCTIONS D'ENVOI =====
     function prepareFormData() {
-      formData = {
-        name: document.getElementById('name').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        service: document.getElementById('serviceSelect').value,
-        message: document.getElementById('message').value,
-        date: new Date().toLocaleDateString('fr-FR'),
-        time: new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'})
-      };
+      // Les données sont déjà préparées dans la soumission du formulaire
     }
     
     function sendViaWhatsApp() {
@@ -1821,10 +1832,38 @@
         });
       }
       
-      document.getElementById('devisForm').addEventListener('submit', function(e) {
+      // Gestion du formulaire de devis avec AJAX
+      document.getElementById('devisForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        prepareFormData();
-        openChoiceModal();
+        const nom = document.getElementById('nom').value;
+        const prenom = document.getElementById('prenom').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const service = document.getElementById('serviceSelect').value;
+        const message = document.getElementById('message').value;
+
+        const data = { nom, prenom, phone, email, service, message };
+
+        try {
+          const result = await envoyerFormulaire('enregistrer_devis.php', data);
+          if (result.success) {
+            // Préparer formData pour les fonctions existantes
+            formData = {
+              name: prenom + ' ' + nom,
+              phone: phone,
+              email: email,
+              service: service,
+              message: message,
+              date: new Date().toLocaleDateString('fr-FR'),
+              time: new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})
+            };
+            openChoiceModal(); // Ouvre la modale de choix
+          } else {
+            alert('Erreur lors de l\'enregistrement.');
+          }
+        } catch (error) {
+          alert('Erreur de communication avec le serveur.');
+        }
       });
       
       document.addEventListener('click', function(e) {

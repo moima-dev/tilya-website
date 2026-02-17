@@ -680,7 +680,7 @@
       box-shadow: 0 30px 70px rgba(255, 140, 0, 0.6);
     }
 
-    /* MODALES PRÉ-INSCRIPTION */
+    /* MODALES PRÉ-INSCRIPTION (avec nouveaux champs) */
     .preinscription-modal {
       position: fixed;
       top: 0;
@@ -1345,7 +1345,7 @@
               <input type="text" id="rentalName" name="name" placeholder="Votre nom complet" required>
             </div>
             <div class="form-group">
-              <label for="rentalPhone">Téléphone</label>
+              <label for="rentalPhone">Téléphone(WhatsApp)</label>
               <input type="tel" id="rentalPhone" name="phone" placeholder="+225 XX XX XX XX" required>
             </div>
           </div>
@@ -1394,15 +1394,46 @@
       </div>
     </section>
 
-    <!-- MODALE PRÉ-INSCRIPTION ABIDJAN -->
+    <!-- MODALE PRÉ-INSCRIPTION ABIDJAN (avec infos parent et champs séparés + lieu) -->
     <div id="preinscriptionAbidjan" class="preinscription-modal">
       <div class="preinscription-form-container">
         <button class="close-btn" onclick="closePreinscription('abidjan')">✕</button>
-        <h3> Pré-inscription Abidjan</h3>
+        <h3> Demande de Pré-inscription Abidjan</h3>
         <form id="preinscriptionAbidjanForm">
+          <!-- Élève : Nom et Prénom séparés -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="abidjanEleveNom">Nom de l'élève</label>
+              <input type="text" id="abidjanEleveNom" name="eleveNom" placeholder="Nom de l'élève" required>
+            </div>
+            <div class="form-group">
+              <label for="abidjanElevePrenom">Prénom de l'élève</label>
+              <input type="text" id="abidjanElevePrenom" name="elevePrenom" placeholder="Prénom de l'élève" required>
+            </div>
+          </div>
+          <!-- Parent : Nom et Prénom séparés -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="abidjanParentNom">Nom du parent</label>
+              <input type="text" id="abidjanParentNom" name="parentNom" placeholder="Nom du parent" required>
+            </div>
+            <div class="form-group">
+              <label for="abidjanParentPrenom">Prénom du parent</label>
+              <input type="text" id="abidjanParentPrenom" name="parentPrenom" placeholder="Prénom du parent" required>
+            </div>
+          </div>
           <div class="form-group">
-            <label for="abidjanName">Nom & Prénoms</label>
-            <input type="text" id="abidjanName" name="name" placeholder="Votre nom complet" required>
+            <label for="abidjanParentPhone">Téléphone du parent (WhatsApp)</label>
+            <input type="tel" id="abidjanParentPhone" name="parentPhone" placeholder="+225 XX XX XX XX" required>
+          </div>
+          <div class="form-group">
+            <label for="abidjanParentEmail">Email du parent (optionnel)</label>
+            <input type="email" id="abidjanParentEmail" name="parentEmail" placeholder="parent@email.com">
+          </div>
+          <!-- Nouveau champ : Lieu d'habitation -->
+          <div class="form-group">
+            <label for="abidjanLieu">Lieu d'habitation</label>
+            <input type="text" id="abidjanLieu" name="lieu" placeholder="Quartier, ville" required>
           </div>
           <div class="form-group">
             <label for="abidjanEcole">École partenaire</label>
@@ -1419,15 +1450,46 @@
       </div>
     </div>
 
-    <!-- MODALE PRÉ-INSCRIPTION YAMOUSSOUKRO -->
+    <!-- MODALE PRÉ-INSCRIPTION YAMOUSSOUKRO (avec infos parent et champs séparés + lieu) -->
     <div id="preinscriptionYamoussoukro" class="preinscription-modal">
       <div class="preinscription-form-container">
         <button class="close-btn" onclick="closePreinscription('yamoussoukro')">✕</button>
-        <h3> Pré-inscription Yamoussoukro</h3>
+        <h3> Demande de Pré-inscription Yamoussoukro</h3>
         <form id="preinscriptionYamoussoukroForm">
+          <!-- Élève : Nom et Prénom séparés -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="yamoussoukroEleveNom">Nom de l'élève</label>
+              <input type="text" id="yamoussoukroEleveNom" name="eleveNom" placeholder="Nom de l'élève" required>
+            </div>
+            <div class="form-group">
+              <label for="yamoussoukroElevePrenom">Prénom de l'élève</label>
+              <input type="text" id="yamoussoukroElevePrenom" name="elevePrenom" placeholder="Prénom de l'élève" required>
+            </div>
+          </div>
+          <!-- Parent : Nom et Prénom séparés -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="yamoussoukroParentNom">Nom du parent</label>
+              <input type="text" id="yamoussoukroParentNom" name="parentNom" placeholder="Nom du parent" required>
+            </div>
+            <div class="form-group">
+              <label for="yamoussoukroParentPrenom">Prénom du parent</label>
+              <input type="text" id="yamoussoukroParentPrenom" name="parentPrenom" placeholder="Prénom du parent" required>
+            </div>
+          </div>
           <div class="form-group">
-            <label for="yamoussoukroName">Nom & Prénoms</label>
-            <input type="text" id="yamoussoukroName" name="name" placeholder="Votre nom complet" required>
+            <label for="yamoussoukroParentPhone">Téléphone du parent (WhatsApp)</label>
+            <input type="tel" id="yamoussoukroParentPhone" name="parentPhone" placeholder="+225 XX XX XX XX" required>
+          </div>
+          <div class="form-group">
+            <label for="yamoussoukroParentEmail">Email du parent (optionnel)</label>
+            <input type="email" id="yamoussoukroParentEmail" name="parentEmail" placeholder="parent@email.com">
+          </div>
+          <!-- Nouveau champ : Lieu d'habitation -->
+          <div class="form-group">
+            <label for="yamoussoukroLieu">Lieu d'habitation</label>
+            <input type="text" id="yamoussoukroLieu" name="lieu" placeholder="Quartier, ville" required>
           </div>
           <div class="form-group">
             <label for="yamoussoukroEcole">École partenaire</label>
@@ -1544,36 +1606,96 @@
       });
     });
 
-    // Gestionnaire d'envoi pour Abidjan
-    document.getElementById('preinscriptionAbidjanForm')?.addEventListener('submit', function(e) {
+    // Fonction AJAX générique
+    async function envoyerFormulaire(url, data) {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      return response.json();
+    }
+
+    // Gestionnaire d'envoi pour Abidjan (avec AJAX)
+    document.getElementById('preinscriptionAbidjanForm')?.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const name = document.getElementById('abidjanName').value;
+      const eleveNom = document.getElementById('abidjanEleveNom').value;
+      const elevePrenom = document.getElementById('abidjanElevePrenom').value;
+      const parentNom = document.getElementById('abidjanParentNom').value;
+      const parentPrenom = document.getElementById('abidjanParentPrenom').value;
+      const parentPhone = document.getElementById('abidjanParentPhone').value;
+      const parentEmail = document.getElementById('abidjanParentEmail').value;
+      const lieu = document.getElementById('abidjanLieu').value;
       const ecole = document.getElementById('abidjanEcole').value;
-      const message = `📝 *NOUVELLE PRÉ-INSCRIPTION ABIDJAN* - Tilya-co Transport%0A%0A` +
-                      `👤 *Nom*: ${name}%0A` +
-                      `🏫 *École choisie*: ${ecole}%0A%0A` +
-                      `📅 *Date*: ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}`;
-      const url = `https://wa.me/${whatsappNumberAbidjan.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
-      alert('✅ Pré-inscription envoyée via WhatsApp !');
-      closePreinscription('abidjan');
-      this.reset();
+
+      const data = {
+        eleveNom, elevePrenom, parentNom, parentPrenom,
+        parentPhone, parentEmail, lieu, ecole
+      };
+
+      try {
+        const result = await envoyerFormulaire('enregistrer_abidjan.php', data);
+        if (result.success) {
+          const message = `📝 *NOUVELLE PRÉ-INSCRIPTION ABIDJAN* - Tilya-co Transport%0A%0A` +
+                          `👤 *Élève*: ${elevePrenom} ${eleveNom}%0A` +
+                          `👪 *Parent*: ${parentPrenom} ${parentNom}%0A` +
+                          `📱 *Téléphone parent*: ${parentPhone}%0A` +
+                          `📧 *Email parent*: ${parentEmail || 'Non renseigné'}%0A` +
+                          `📍 *Lieu d'habitation*: ${lieu}%0A` +
+                          `🏫 *École choisie*: ${ecole}%0A%0A` +
+                          `📅 *Date*: ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}`;
+          const url = `https://wa.me/${whatsappNumberAbidjan.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+          window.open(url, '_blank');
+          alert('✅ Pré-inscription enregistrée et envoyée via WhatsApp !');
+          closePreinscription('abidjan');
+          this.reset();
+        } else {
+          alert('Erreur lors de l\'enregistrement.');
+        }
+      } catch (error) {
+        alert('Erreur de communication avec le serveur.');
+      }
     });
 
-    // Gestionnaire d'envoi pour Yamoussoukro
-    document.getElementById('preinscriptionYamoussoukroForm')?.addEventListener('submit', function(e) {
+    // Gestionnaire d'envoi pour Yamoussoukro (avec AJAX)
+    document.getElementById('preinscriptionYamoussoukroForm')?.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const name = document.getElementById('yamoussoukroName').value;
+      const eleveNom = document.getElementById('yamoussoukroEleveNom').value;
+      const elevePrenom = document.getElementById('yamoussoukroElevePrenom').value;
+      const parentNom = document.getElementById('yamoussoukroParentNom').value;
+      const parentPrenom = document.getElementById('yamoussoukroParentPrenom').value;
+      const parentPhone = document.getElementById('yamoussoukroParentPhone').value;
+      const parentEmail = document.getElementById('yamoussoukroParentEmail').value;
+      const lieu = document.getElementById('yamoussoukroLieu').value;
       const ecole = document.getElementById('yamoussoukroEcole').value;
-      const message = `📝 *NOUVELLE PRÉ-INSCRIPTION YAMOUSSOUKRO* - Tilya-co Transport%0A%0A` +
-                      `👤 *Nom*: ${name}%0A` +
-                      `🏫 *École choisie*: ${ecole}%0A%0A` +
-                      `📅 *Date*: ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}`;
-      const url = `https://wa.me/${whatsappNumberYamoussoukro.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
-      alert('✅ Pré-inscription envoyée via WhatsApp !');
-      closePreinscription('yamoussoukro');
-      this.reset();
+
+      const data = {
+        eleveNom, elevePrenom, parentNom, parentPrenom,
+        parentPhone, parentEmail, lieu, ecole
+      };
+
+      try {
+        const result = await envoyerFormulaire('enregistrer_yamoussoukro.php', data);
+        if (result.success) {
+          const message = `📝 *NOUVELLE PRÉ-INSCRIPTION YAMOUSSOUKRO* - Tilya-co Transport%0A%0A` +
+                          `👤 *Élève*: ${elevePrenom} ${eleveNom}%0A` +
+                          `👪 *Parent*: ${parentPrenom} ${parentNom}%0A` +
+                          `📱 *Téléphone parent*: ${parentPhone}%0A` +
+                          `📧 *Email parent*: ${parentEmail || 'Non renseigné'}%0A` +
+                          `📍 *Lieu d'habitation*: ${lieu}%0A` +
+                          `🏫 *École choisie*: ${ecole}%0A%0A` +
+                          `📅 *Date*: ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}`;
+          const url = `https://wa.me/${whatsappNumberYamoussoukro.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+          window.open(url, '_blank');
+          alert('✅ Pré-inscription enregistrée et envoyée via WhatsApp !');
+          closePreinscription('yamoussoukro');
+          this.reset();
+        } else {
+          alert('Erreur lors de l\'enregistrement.');
+        }
+      } catch (error) {
+        alert('Erreur de communication avec le serveur.');
+      }
     });
 
     // Fonctions location
@@ -1602,7 +1724,7 @@
     function initRentalForm() {
       const rentalForm = document.getElementById('rentalForm');
       if (rentalForm) {
-        rentalForm.addEventListener('submit', function(e) {
+        rentalForm.addEventListener('submit', async function(e) {
           e.preventDefault();
           const name = document.getElementById('rentalName').value;
           const phone = document.getElementById('rentalPhone').value;
@@ -1613,17 +1735,31 @@
           const startPoint = document.getElementById('rentalStartPoint').value;
           const destination = document.getElementById('rentalDestination').value;
 
-          const formatDateFr = (d) => d ? d.split('-').reverse().join('/') : 'Non spécifié';
-          const message = `🚗 *NOUVELLE DEMANDE DE LOCATION* - Tilya-co Transport%0A%0A` +
-            `👤 *Nom*: ${name}%0A📱 *Téléphone*: ${phone}%0A📧 *Email*: ${email}%0A%0A` +
-            `📅 *Période*: du ${formatDateFr(startDate)} au ${formatDateFr(endDate)} à ${startTime}%0A` +
-            `📍 *Départ*: ${startPoint}%0A🎯 *Destination*: ${destination}%0A%0A` +
-            `⏱️ *Demande*: ${new Date().toLocaleDateString('fr-FR')} ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}`;
-          const url = `https://wa.me/${whatsappNumberLocation.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-          window.open(url, '_blank');
-          alert('✅ Demande de location envoyée !');
-          closeRental();
-          this.reset();
+          const data = {
+            name, phone, email, startDate, endDate,
+            startTime, startPoint, destination
+          };
+
+          try {
+            const result = await envoyerFormulaire('enregistrer_location.php', data);
+            if (result.success) {
+              const formatDateFr = (d) => d ? d.split('-').reverse().join('/') : 'Non spécifié';
+              const message = `🚗 *NOUVELLE DEMANDE DE LOCATION* - Tilya-co Transport%0A%0A` +
+                `👤 *Nom*: ${name}%0A📱 *Téléphone*: ${phone}%0A📧 *Email*: ${email}%0A%0A` +
+                `📅 *Période*: du ${formatDateFr(startDate)} au ${formatDateFr(endDate)} à ${startTime}%0A` +
+                `📍 *Départ*: ${startPoint}%0A🎯 *Destination*: ${destination}%0A%0A` +
+                `⏱️ *Demande*: ${new Date().toLocaleDateString('fr-FR')} ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}`;
+              const url = `https://wa.me/${whatsappNumberLocation.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+              window.open(url, '_blank');
+              alert('✅ Demande de location enregistrée et envoyée !');
+              closeRental();
+              this.reset();
+            } else {
+              alert('Erreur lors de l\'enregistrement.');
+            }
+          } catch (error) {
+            alert('Erreur de communication avec le serveur.');
+          }
         });
       }
     }
