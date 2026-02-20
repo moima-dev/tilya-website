@@ -752,7 +752,7 @@
       box-shadow: 0 30px 70px rgba(255, 140, 0, 0.6);
     }
 
-    /* MODALES PRÉ-INSCRIPTION (avec nouveaux champs) */
+    /* MODALES PRÉ-INSCRIPTION */
     .preinscription-modal {
       position: fixed;
       top: 0;
@@ -791,13 +791,16 @@
       position: relative;
       transform: scale(0.8);
       transition: transform 0.5s ease;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
     }
 
     .preinscription-modal.show .preinscription-form-container {
       transform: scale(1);
     }
 
-    .close-btn {
+    .preinscription-form-container .close-btn {
       position: absolute;
       top: 20px;
       right: 20px;
@@ -814,9 +817,11 @@
       justify-content: center;
       border-radius: 50%;
       transition: all 0.3s ease;
+      flex-shrink: 0;
+      z-index: 10;
     }
 
-    .close-btn:hover {
+    .preinscription-form-container .close-btn:hover {
       background: var(--primary-orange);
       transform: rotate(90deg);
     }
@@ -828,6 +833,7 @@
       background: linear-gradient(135deg, var(--primary-orange), #ffa500);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      flex-shrink: 0;
     }
 
     .preinscription-form-container .form-group {
@@ -866,7 +872,7 @@
       color: #fff;
     }
 
-    .btn-submit {
+    .preinscription-form-container .btn-submit {
       width: 100%;
       padding: 18px;
       margin-top: 10px;
@@ -880,9 +886,10 @@
       transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
+      flex-shrink: 0;
     }
 
-    .btn-submit::before {
+    .preinscription-form-container .btn-submit::before {
       content: '';
       position: absolute;
       top: 0;
@@ -893,13 +900,35 @@
       transition: left 0.6s;
     }
 
-    .btn-submit:hover::before { left: 100%; }
-    .btn-submit:hover {
+    .preinscription-form-container .btn-submit:hover::before { left: 100%; }
+    .preinscription-form-container .btn-submit:hover {
       transform: translateY(-3px);
       box-shadow: 0 20px 50px rgba(255, 140, 0, 0.5);
     }
 
-    /* MODALE LOCATION (version complète) */
+    /* Formulaire à l'intérieur de la modale (défilant) */
+    .preinscription-form-container form {
+      overflow-y: auto;
+      padding-right: 5px;
+      flex: 1;
+    }
+
+    .preinscription-form-container form::-webkit-scrollbar {
+      width: 6px;
+    }
+    .preinscription-form-container form::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+    .preinscription-form-container form::-webkit-scrollbar-thumb {
+      background: rgba(255,140,0,0.5);
+      border-radius: 10px;
+    }
+    .preinscription-form-container form::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,140,0,0.7);
+    }
+
+    /* MODALE LOCATION */
     .rental-section-bottom {
       position: fixed;
       top: 0;
@@ -938,13 +967,16 @@
       position: relative;
       transform: scale(0.8);
       transition: transform 0.5s ease;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
     }
 
     .rental-section-bottom.show .rental-form-container {
       transform: scale(1);
     }
 
-    .close-btn {
+    .rental-form-container .close-btn {
       position: absolute;
       top: 20px;
       right: 20px;
@@ -961,9 +993,11 @@
       justify-content: center;
       border-radius: 50%;
       transition: all 0.3s ease;
+      flex-shrink: 0;
+      z-index: 10;
     }
 
-    .close-btn:hover {
+    .rental-form-container .close-btn:hover {
       background: var(--primary-orange);
       transform: rotate(90deg);
     }
@@ -975,6 +1009,28 @@
       background: linear-gradient(135deg, var(--primary-orange), #ffa500);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      flex-shrink: 0;
+    }
+
+    .rental-form-container form {
+      overflow-y: auto;
+      padding-right: 5px;
+      flex: 1;
+    }
+
+    .rental-form-container form::-webkit-scrollbar {
+      width: 6px;
+    }
+    .rental-form-container form::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+    .rental-form-container form::-webkit-scrollbar-thumb {
+      background: rgba(255,140,0,0.5);
+      border-radius: 10px;
+    }
+    .rental-form-container form::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,140,0,0.7);
     }
 
     .form-row {
@@ -998,7 +1054,8 @@
       font-weight: 600;
     }
 
-    .form-group input {
+    .form-group input,
+    .form-group select {
       width: 100%;
       padding: 15px;
       border-radius: 12px;
@@ -1009,7 +1066,8 @@
       transition: all 0.3s ease;
     }
 
-    .form-group input:focus {
+    .form-group input:focus,
+    .form-group select:focus {
       outline: none;
       border-color: var(--primary-orange);
       box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
@@ -1047,6 +1105,7 @@
       transition: all 0.4s ease;
       position: relative;
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .btn-submit::before {
@@ -1272,6 +1331,7 @@
       .footer-contact-title { font-size: 1.8rem; margin-bottom: 30px; }
       .form-row { flex-direction: column; }
       .rental-form-container { padding: 40px 30px; }
+      .preinscription-form-container { padding: 30px 20px; }
     }
 
     @media (max-width: 480px) {
@@ -1284,6 +1344,8 @@
       .location-cta span { font-size: 1.1rem; }
       .rental-form-container { padding: 30px 20px; }
       .rental-form-container h3 { font-size: 1.6rem; }
+      .preinscription-form-container { padding: 25px 15px; }
+      .preinscription-form-container h3 { font-size: 1.5rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
