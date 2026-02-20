@@ -105,6 +105,7 @@
       -webkit-text-fill-color: transparent;
     }
 
+    /* ===== NAVIGATION (DESKTOP) ===== */
     .c-nav {
       display: flex;
       gap: 10px;
@@ -146,6 +147,78 @@
       background: linear-gradient(135deg, #ff8c00, #ffa500);
       color: #0a0e1a;
       box-shadow: 0 10px 30px rgba(255, 140, 0, 0.5);
+    }
+
+    /* ===== BOUTON HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 200;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      margin: 3px 0;
+      transition: 0.4s;
+      border-radius: 3px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* ===== MENU MOBILE ===== */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 250px;
+      height: 100vh;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      padding-top: 100px;
+      transition: right 0.3s ease;
+      border-left: 1px solid rgba(255, 140, 0, 0.2);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu a {
+      padding: 20px 30px;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 700;
+      font-size: 1.2rem;
+      border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(255, 140, 0, 0.15);
+      color: #fff;
+      padding-left: 40px;
+    }
+
+    .mobile-menu a.active {
+      background: linear-gradient(135deg, #ff8c00, #ffa500);
+      color: #0a0e1a;
     }
 
     /* ===== Hero ===== */
@@ -1106,7 +1179,7 @@
       transform: translateY(-3px);
     }
 
-    /* Responsive */
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       .c-hero-grid {
         grid-template-columns: 1fr;
@@ -1136,9 +1209,13 @@
 
     @media (max-width: 768px) {
       .c-nav {
-        display: none;
+        display: none; /* Cache la navigation desktop */
       }
-      
+
+      .hamburger {
+        display: flex; /* Affiche le bouton hamburger */
+      }
+
       .c-title {
         font-size: 2.2rem;
       }
@@ -1289,13 +1366,28 @@
           <span>TILYA-CO</span>
         </a>
 
+        <!-- Navigation desktop -->
         <nav class="c-nav">
           <a href="index.html">Accueil</a>
           <a href="transport.html">Transport</a>
           <a class="active" href="carrosserie.html">Carrosserie</a>
         </nav>
+
+        <!-- Bouton hamburger -->
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </header>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Accueil</a>
+      <a href="transport.html">Transport</a>
+      <a class="active" href="carrosserie.html">Carrosserie</a>
+    </div>
 
     <section class="c-hero">
       <div class="c-container c-hero-grid">
@@ -1503,15 +1595,15 @@
       <div class="c-modal-title" id="devisTitle">Demande de devis</div>
 
       <form class="c-form" id="devisForm">
-        <!-- Nouvelle ligne : Nom et Prénom séparés -->
+        <!-- Nouvelle ligne : Nom et Prénom séparés avec placeholders modifiés -->
         <div class="form-row">
           <div class="form-group">
             <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            <input type="text" id="nom" name="nom" placeholder="écrire ENTREPRISE SI ENTREPRISE" required>
           </div>
           <div class="form-group">
             <label for="prenom">Prénom</label>
-            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+            <input type="text" id="prenom" name="prenom" placeholder="écrire LE NOM DE VOTRE ENTREPRISE SI ENTREPRISE" required>
           </div>
         </div>
 
@@ -1800,6 +1892,27 @@
       window.open(whatsappUrl, '_blank');
     }
     
+    // ===== GESTION DU MENU HAMBURGER =====
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+      });
+
+      // Fermer le menu quand on clique sur un lien
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        });
+      });
+    });
+
     // ===== GESTION DES ÉVÉNEMENTS =====
     document.addEventListener('DOMContentLoaded', () => {
       initSlideshows();

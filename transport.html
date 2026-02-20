@@ -191,6 +191,78 @@
       box-shadow: 0 10px 30px rgba(255, 140, 0, 0.5);
     }
 
+    /* ===== BOUTON HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 200;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      margin: 3px 0;
+      transition: 0.4s;
+      border-radius: 3px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* ===== MENU MOBILE ===== */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 250px;
+      height: 100vh;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      padding-top: 100px;
+      transition: right 0.3s ease;
+      border-left: 1px solid rgba(255, 140, 0, 0.2);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu a {
+      padding: 20px 30px;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 700;
+      font-size: 1.2rem;
+      border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(255, 140, 0, 0.15);
+      color: #fff;
+      padding-left: 40px;
+    }
+
+    .mobile-menu a.active {
+      background: linear-gradient(135deg, var(--primary-orange), var(--light-orange));
+      color: #0a0e1a;
+    }
+
     .hero {
       padding: 120px 0 100px;
       position: relative;
@@ -1187,7 +1259,8 @@
     }
 
     @media (max-width: 768px) {
-      nav { display: none; }
+      nav { display: none; } /* Cache la navigation desktop */
+      .hamburger { display: flex; } /* Affiche le hamburger */
       .hero-intro h1 { font-size: 2.5rem; }
       .details-grid { grid-template-columns: 1fr; }
       .detail-box { padding: 30px 25px; }
@@ -1238,8 +1311,21 @@
           <a class="active" href="transport.html">Transport</a>
           <a href="carrosserie.html">Carrosserie</a>
         </nav>
+        <!-- Bouton hamburger -->
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </header>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Accueil</a>
+      <a class="active" href="transport.html">Transport</a>
+      <a href="carrosserie.html">Carrosserie</a>
+    </div>
 
     <main class="hero">
       <div class="container">
@@ -1578,6 +1664,29 @@
         particlesContainer.appendChild(particle);
       }
     }
+
+    // Gestion du menu hamburger
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      if (hamburger) {
+        hamburger.addEventListener('click', function() {
+          hamburger.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+          document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+      }
+
+      // Fermer le menu quand on clique sur un lien
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        });
+      });
+    });
 
     // Fonctions pour les modales de pré-inscription
     function openPreinscription(ville) {
