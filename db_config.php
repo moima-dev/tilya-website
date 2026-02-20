@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost';
-$dbname = 'tilya_db';
-$user = 'root';      // Utilisateur par défaut de XAMPP
-$pass = '';          // Mot de passe vide par défaut
+$host = 'localhost'; // ou l'hôte indiqué
+$dbname = 'tilya_co_db'; // le nom exact de ta base
+$user = 'tilya_user';
+$pass = 'aAmO9Jzt@iv&ks48';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass);
