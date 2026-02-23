@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Éviter l'indexation des fichiers sensibles
+Disallow: /install_*.php
+Disallow: /*.php$
+
+# Sitemap
+Sitemap: https://tilya-co.com/sitemap.xml
